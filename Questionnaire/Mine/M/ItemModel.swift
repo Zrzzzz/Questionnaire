@@ -9,8 +9,10 @@
 import UIKit
 
 struct ItemModel: Codable {
-    let title: String
-    let type: ItemType
-    let status: ItemStatus
-    let count: Int
+    let id: Int?
+    let title: String?
+    let explain: String?
+    let type: ItemType?
+    let status: ItemStatus?
+    let count: Int?
 }

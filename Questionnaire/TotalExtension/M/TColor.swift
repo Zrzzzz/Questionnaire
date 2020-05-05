@@ -18,4 +18,7 @@ public struct TColor {
     static let text = UIColor.init { trainCollection -> UIColor in
         return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0x000000): UIColor(hex6: 0xFFFFFF)
     }
+    static let bgGray = UIColor.init { trainCollection -> UIColor in
+        return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0x000000): UIColor(hex6: 0xf2f2f2)
+    }
 }

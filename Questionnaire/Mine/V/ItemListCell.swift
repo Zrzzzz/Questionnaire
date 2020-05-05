@@ -84,8 +84,8 @@ class ItemListCell: UITableViewCell {
     
     func set(item: ItemModel) {
         title.text = item.title
-        statusCirc.changeStatus(status: item.status)
-        statusLabel.text = item.status.text()
+        statusCirc.changeStatus(status: item.status ?? ItemStatus.notPub)
+        statusLabel.text = item.status?.text()
         countLabel.text = String(describing: item.count)
     }
     

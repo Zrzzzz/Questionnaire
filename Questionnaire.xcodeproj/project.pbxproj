@@ -29,6 +29,13 @@
 		D3F77F19245AB83B00E10220 /* NewGestureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F14245AB83B00E10220 /* NewGestureAction.swift */; };
 		D3F77F1A245AB83B00E10220 /* NewGestureVIew+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F15245AB83B00E10220 /* NewGestureVIew+Gesture.swift */; };
 		D3F77F1C245AB9F000E10220 /* QuerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */; };
+		D3F77F9E245FEF1800E10220 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F9D245FEF1800E10220 /* QuestionModel.swift */; };
+		D3F77FA0245FF0EE00E10220 /* SelectQCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */; };
+		D3F77FA2245FFC4000E10220 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA1245FFC4000E10220 /* SelectionView.swift */; };
+		D3F77FA4246067F300E10220 /* QuerSettingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */; };
+		D3F77FA62460747600E10220 /* RandomQSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA52460747600E10220 /* RandomQSetViewController.swift */; };
+		D3F77FA82460782900E10220 /* AddQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA72460782900E10220 /* AddQViewController.swift */; };
+		D3F77FAA2460790700E10220 /* TotalFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA92460790700E10220 /* TotalFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +65,13 @@
 		D3F77F14245AB83B00E10220 /* NewGestureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGestureAction.swift; sourceTree = "<group>"; };
 		D3F77F15245AB83B00E10220 /* NewGestureVIew+Gesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewGestureVIew+Gesture.swift"; sourceTree = "<group>"; };
 		D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerSettingViewController.swift; sourceTree = "<group>"; };
+		D3F77F9D245FEF1800E10220 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
+		D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQCell.swift; sourceTree = "<group>"; };
+		D3F77FA1245FFC4000E10220 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerSettingLabel.swift; sourceTree = "<group>"; };
+		D3F77FA52460747600E10220 /* RandomQSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomQSetViewController.swift; sourceTree = "<group>"; };
+		D3F77FA72460782900E10220 /* AddQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQViewController.swift; sourceTree = "<group>"; };
+		D3F77FA92460790700E10220 /* TotalFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalFunc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,11 +159,11 @@
 		D3F10C91245208AC00B0EB4C /* Questionnaire */ = {
 			isa = PBXGroup;
 			children = (
-				D3F77F10245AB83B00E10220 /* NiceGesture */,
-				D3F77F0A245AB2C400E10220 /* Quer */,
 				D3F10CA0245208AD00B0EB4C /* Info.plist */,
 				D3F10CBA2452C72C00B0EB4C /* Appinfo */,
 				D3F10CA7245209D800B0EB4C /* TotalExtension */,
+				D3F77F10245AB83B00E10220 /* NiceGesture */,
+				D3F77F0A245AB2C400E10220 /* Quer */,
 				D3F10CA6245209BB00B0EB4C /* Home */,
 				D3B2F9C82452D491004BC23D /* Mine */,
 				D3F10CA824520A2A00B0EB4C /* Trash */,
@@ -231,6 +245,7 @@
 			children = (
 				D3F10CB42452C0B800B0EB4C /* TotalModel.swift */,
 				D3F10CB82452C35400B0EB4C /* TColor.swift */,
+				D3F77FA92460790700E10220 /* TotalFunc.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -282,6 +297,8 @@
 			children = (
 				D3F77F0E245AB4AA00E10220 /* QuerEditViewController.swift */,
 				D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */,
+				D3F77FA52460747600E10220 /* RandomQSetViewController.swift */,
+				D3F77FA72460782900E10220 /* AddQViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -289,6 +306,9 @@
 		D3F77F0C245AB2D400E10220 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */,
+				D3F77FA1245FFC4000E10220 /* SelectionView.swift */,
+				D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -296,6 +316,7 @@
 		D3F77F0D245AB2DB00E10220 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				D3F77F9D245FEF1800E10220 /* QuestionModel.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -429,21 +450,28 @@
 			files = (
 				D3F10CB92452C35400B0EB4C /* TColor.swift in Sources */,
 				D3F77F0F245AB4AA00E10220 /* QuerEditViewController.swift in Sources */,
+				D3F77F9E245FEF1800E10220 /* QuestionModel.swift in Sources */,
 				D3F10C93245208AC00B0EB4C /* AppDelegate.swift in Sources */,
 				D3F77F16245AB83B00E10220 /* NewLongPressGesture.swift in Sources */,
+				D3F77FA2245FFC4000E10220 /* SelectionView.swift in Sources */,
 				D3B2F9CD2452D4BE004BC23D /* CreateViewController.swift in Sources */,
 				D3B2F9D12452FFB6004BC23D /* ItemModel.swift in Sources */,
 				D3B2F9D5245302B0004BC23D /* StatusCircle.swift in Sources */,
 				D3F77F18245AB83B00E10220 /* NewPanGesture.swift in Sources */,
+				D3F77FA0245FF0EE00E10220 /* SelectQCell.swift in Sources */,
 				D3F77F1A245AB83B00E10220 /* NewGestureVIew+Gesture.swift in Sources */,
 				D3F77F19245AB83B00E10220 /* NewGestureAction.swift in Sources */,
+				D3F77FAA2460790700E10220 /* TotalFunc.swift in Sources */,
 				D3B2F9D324530173004BC23D /* ItemListCell.swift in Sources */,
 				D3F77F17245AB83B00E10220 /* NewTapGesture.swift in Sources */,
+				D3F77FA62460747600E10220 /* RandomQSetViewController.swift in Sources */,
 				D3B2F9CF2452F441004BC23D /* MineViewController.swift in Sources */,
 				D3F10CBC2452C8F000B0EB4C /* PartButton.swift in Sources */,
 				D3F77F1C245AB9F000E10220 /* QuerSettingViewController.swift in Sources */,
 				D3F10CB72452C0C600B0EB4C /* TotalView.swift in Sources */,
+				D3F77FA82460782900E10220 /* AddQViewController.swift in Sources */,
 				D3F10CB324520B1E00B0EB4C /* HomeViewController.swift in Sources */,
+				D3F77FA4246067F300E10220 /* QuerSettingLabel.swift in Sources */,
 				D3F10CB52452C0B800B0EB4C /* TotalModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

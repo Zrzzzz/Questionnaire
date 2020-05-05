@@ -132,31 +132,31 @@ extension MineViewController {
 extension MineViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard searchController.searchBar.text != "" && itemList.contains(where: { (item) -> Bool in
-            item.title.contains(searchController.searchBar.text!)
+            (item.title ?? "").contains(searchController.searchBar.text!)
         }) else { return }
         filterList = itemList.filter {
-            $0.title.contains(searchController.searchBar.text!)
+            ($0.title ?? "").contains(searchController.searchBar.text!)
         }
 
     }
     
     private func getData() -> [ItemModel] {
         return [
-            ItemModel(title: "问卷1", type: .quer, status: .pubed, count: 1895),
-            ItemModel(title: "问卷2", type: .quer, status: .overed, count: 1895),
-            ItemModel(title: "问卷3", type: .quer, status: .notPub, count: 1895),
-            ItemModel(title: "问卷4", type: .quer, status: .notPub, count: 1895),
-            ItemModel(title: "问卷5", type: .quer, status: .notPub, count: 1895),
-            ItemModel(title: "投票1", type: .vote, status: .notPub, count: 1895),
-            ItemModel(title: "投票2", type: .vote, status: .notPub, count: 1895),
-            ItemModel(title: "投票3", type: .vote, status: .notPub, count: 1895),
-            ItemModel(title: "投票4", type: .vote, status: .notPub, count: 1895),
-            ItemModel(title: "投票5", type: .vote, status: .notPub, count: 1895),
-            ItemModel(title: "答题1", type: .test, status: .notPub, count: 1895),
-            ItemModel(title: "答题2", type: .test, status: .notPub, count: 1895),
-            ItemModel(title: "答题3", type: .test, status: .notPub, count: 1895),
-            ItemModel(title: "答题4", type: .test, status: .notPub, count: 1895),
-            ItemModel(title: "答题5", type: .test, status: .notPub, count: 1895)
+            ItemModel(id: nil, title: "问卷1", explain: nil, type: .quer, status: .pubed, count: 1895),
+            ItemModel(id: nil, title: "问卷2", explain: nil, type: .quer, status: .overed, count: 1895),
+            ItemModel(id: nil, title: "问卷3", explain: nil, type: .quer, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "问卷4", explain: nil, type: .quer, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "问卷5", explain: nil, type: .quer, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "投票1", explain: nil, type: .vote, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "投票2", explain: nil, type: .vote, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "投票3", explain: nil, type: .vote, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "投票4", explain: nil, type: .vote, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "投票5", explain: nil, type: .vote, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "答题1", explain: nil, type: .test, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "答题2", explain: nil, type: .test, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "答题3", explain: nil, type: .test, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "答题4", explain: nil, type: .test, status: .notPub, count: 1895),
+            ItemModel(id: nil, title: "答题5", explain: nil, type: .test, status: .notPub, count: 1895)
         ]
     }
     
@@ -171,7 +171,7 @@ extension MineViewController: UISearchResultsUpdating {
                str = ItemType.vote.rawValue
            }
         filterList = itemList.filter{
-            $0.title.contains(str)
+            ($0.title ?? "").contains(str)
         }
         tableView.reloadData()
        }
