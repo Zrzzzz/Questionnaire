@@ -10,11 +10,13 @@ import UIKit
 
 class StatusCircle: UIView {
     private var colorCirc: UIView!
-    convenience init(width: CGFloat, status: ItemStatus) {
+    convenience init(frame: CGRect, status: PaperStatus) {
         self.init()
         
-        frame = CGRect(x: 0, y: 0, width: width, height: width)
-        let whiteCirc = UIView(frame: frame)
+        // 使其居中对齐, 并且尽可能拓展 -- CGRect.centerRect
+        let newFrame = CGRect.centerRect(rect: frame)
+        
+        let whiteCirc = UIView(frame: newFrame)
         whiteCirc.setCornerRadius(radius: whiteCirc.frame.width / 2)
         whiteCirc.backgroundColor = TColor.circ
         addSubview(whiteCirc)
@@ -32,13 +34,13 @@ class StatusCircle: UIView {
         }
         whiteCirc.addSubview(colorCirc)
         colorCirc.snp.makeConstraints { (make) in
-            make.width.height.equalTo(width * 0.75)
+            make.width.height.equalTo(whiteCirc.frame.width * 0.75)
             make.center.equalTo(whiteCirc)
         }
         colorCirc.setCornerRadius(radius: frame.width * 0.75 / 2)
     }
-    
-    func changeStatus(status: ItemStatus) {
+        
+    func changeStatus(status: PaperStatus) {
         colorCirc.backgroundColor = UIColor { _ in
             switch status {
             case .notPub:
@@ -51,5 +53,4 @@ class StatusCircle: UIView {
             }
         }
     }
-    
 }

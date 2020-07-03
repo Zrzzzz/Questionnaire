@@ -1,40 +1,71 @@
 PODS:
   - Alamofire (4.9.1)
-  - RxCocoa (5.0.1):
+  - Eureka (5.2.1)
+  - Realm (5.0.3):
+    - Realm/Headers (= 5.0.3)
+  - Realm/Headers (5.0.3)
+  - RealmSwift (5.0.3):
+    - Realm (= 5.0.3)
+  - RuntimeNew (2.1.5)
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.0.1):
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.1)
-  - SDWebImage (5.5.2):
-    - SDWebImage/Core (= 5.5.2)
-  - SDWebImage/Core (5.5.2)
+  - RxSwift (5.1.1)
+  - SDWebImage (5.8.2):
+    - SDWebImage/Core (= 5.8.2)
+  - SDWebImage/Core (5.8.2)
   - SnapKit (4.2.0)
+  - SwiftDate (5.1.0)
+  - SwiftyJSON (5.0.0)
+  - Unrealm (1.3.5):
+    - RealmSwift (= 5.0.3)
+    - RuntimeNew (= 2.1.5)
 
 DEPENDENCIES:
   - Alamofire
+  - Eureka
+  - Realm
   - RxCocoa
   - RxSwift
   - SDWebImage
   - SnapKit
+  - SwiftDate (~> 5.0)
+  - SwiftyJSON
+  - Unrealm
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
+    - Eureka
+    - Realm
+    - RealmSwift
+    - RuntimeNew
     - RxCocoa
     - RxRelay
     - RxSwift
     - SDWebImage
     - SnapKit
+    - SwiftDate
+    - SwiftyJSON
+    - Unrealm
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
-  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
-  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
+  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
+  Realm: bfca1699b61b0b17c3a69ae0e648314eae91fbdb
+  RealmSwift: 493c9f089cd3893b3959007973c0e4f640906ba0
+  RuntimeNew: ef34cf1783be4c1cbe798970bc590924dab5df87
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SDWebImage: f923a89d7344af399ba77b87a523ae747408207a
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Unrealm: ba1c168935344084ba28dd6bff5ded86f4837d7f
 
-PODFILE CHECKSUM: 8d690cda0de378865809cd304ba0204042b3183b
+PODFILE CHECKSUM: 44cd5cb1e6f9a612ce261e640252e6a9eeed3afb
 
 COCOAPODS: 1.8.4

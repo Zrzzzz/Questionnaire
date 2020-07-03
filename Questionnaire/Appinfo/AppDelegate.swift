@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Unrealm
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,19 +16,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
-        let viewController = QuerEditViewController()
+        
+        
+        self.regeisterRealmObject() // 注册Realm类
+        
+        let viewController = HomeViewController()
         
         let navigationViewController = UINavigationController.init(rootViewController: viewController)
         
         self.window?.backgroundColor = UIColor.white
-        
-        self.window?.rootViewController = navigationViewController;
+        UIApplication.statusBarBackgroundColor = TColor.main // 设置状态栏颜色
+        self.window?.rootViewController = navigationViewController
         
         window?.makeKeyAndVisible()
         window?.backgroundColor = .systemBackground
         return true
     }
+    
+    fileprivate func regeisterRealmObject() {
+        Realm.registerRealmables([
+            Paper.self,
+            PaperQuestion.self,
+            Blank.self,
+            Multiple.self,
+            Single.self
+        ])
+    }
+    
+    
+
 //    // MARK: UISceneSession Lifecycle
 //
 //    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

@@ -29,9 +29,9 @@ class SelectQCell: UITableViewCell {
         }
     }
     
-    func set(_ q: QuestionModel) {
-        title.text = q.stem
-        ops = q.options ?? []
+    func set(_ q: Single) {
+        title.text = q.question
+        ops = q.options
     }
     
     required init?(coder: NSCoder) {

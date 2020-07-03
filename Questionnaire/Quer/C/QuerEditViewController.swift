@@ -15,9 +15,9 @@ class QuerEditViewController: UIViewController {
     var newBtn: UIButton!
     
     // 变量
-    var quer = ItemModel(id: nil, title: "这是一个问卷", explain: "这是一个说明", type: .quer, status: .notPub, count: 40)
+    let quer = Paper()
     let cellid = "Questionnaire.QuerEditVC.cell"
-    var data: [QuestionModel] = [QuestionModel(id: 0, stem: "这是一个测试", point: 4, cAns: "A", options: ["zzz","xxzz","zzx"])]
+    var data: [Single] = [Single(id: UUID().uuidString, question: "哈哈哈", options: ["nono", "yoyo"], rightAnswer: 0, random: 0, necessary: 0)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +97,7 @@ extension QuerEditViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return 100
         default:
-            return CGFloat(50 + (data[indexPath.row].options?.count)! * 30)
+            return CGFloat(50 + (data[indexPath.row].options.count) * 30)
         }
     }
     
@@ -105,8 +105,8 @@ extension QuerEditViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.text = quer.title
-            cell.detailTextLabel?.text = quer.explain
+            cell.textLabel?.text = quer.paperName
+            cell.detailTextLabel?.text = quer.paperComment
             cell.selectionStyle = .none
             return cell
         default:
