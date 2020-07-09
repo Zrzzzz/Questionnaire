@@ -29,7 +29,7 @@ class RandomQSetViewController: UIViewController {
         }
     }
     
-    @objc func ret() {
+    @objc fileprivate func ret() {
         navigationController?.popViewController(animated: true)
     }
 }

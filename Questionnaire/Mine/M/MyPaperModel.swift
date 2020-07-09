@@ -13,9 +13,9 @@ import SwiftyJSON
 // MARK: - MyJoinPaper
 struct MyJoinPaper: Codable {
     var paperID, paperName: String
-    var startTime, endTime, score: Int
-    var paperType: PaperType
-    var lastTime, times: Int
+    var startTime, endTime, score: Int?
+    var paperType: PaperType?
+    var lastTime, times: Int?
 
     enum CodingKeys: String, CodingKey {
         case paperID = "paper_id"

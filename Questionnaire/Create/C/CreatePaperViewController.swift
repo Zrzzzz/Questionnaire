@@ -58,7 +58,7 @@ class CreatePaperViewController: FormViewController {
                 }
                 row.updateCell()
             }
-            
+
             
             +++ Section()
             <<< ButtonRow("check") {
@@ -70,10 +70,12 @@ class CreatePaperViewController: FormViewController {
                     let explain = (self.form.rowBy(tag: "explain") as! TextRow).value,
                     let start = (self.form.rowBy(tag: "startTime") as! DateTimeInlineRow).value,
                     let end = (self.form.rowBy(tag: "endTime") as! DateTimeInlineRow).value {
-                    let newPaper = Paper(id: UUID().uuidString, paperName: title, paperComment: explain, startTime: Int(start.timeIntervalSince1970), endTime: Int(end.timeIntervalSince1970), paperType: self.type, paperQuestion: nil, random: 0, times: 0, timeLimit: 0)
+                    let newPaper = Paper(id: UUID().uuidString, paperName: title, paperComment: explain, startTime: Int(start.timeIntervalSince1970), endTime: Int(end.timeIntervalSince1970), paperType: self.type, paperQuestion: PaperQuestion(), random: 0, times: 0, timeLimit: 0, needCheck: 0, star: 0)
                     PaperManager.savePaper(by: newPaper)
 
-                    let editVC = CreateCenterViewController()
+                    let editVC = EditPaperViewController()
+                    editVC.paper = newPaper
+                    
                     self.navigationController?.pushViewController(editVC, animated: true)
                     return
                 }
@@ -90,10 +92,9 @@ class CreatePaperViewController: FormViewController {
     }
     
     
-    @objc private func back() {
-        let vcCount = self.navigationController?.viewControllers.count
-        self.navigationController?.popToViewController((self.navigationController?.viewControllers[vcCount! - 3])!, animated: true)
+    @objc fileprivate func back() {
+//        let vcCount = self.navigationController?.viewControllers.count
+//        self.navigationController?.popToViewController((self.navigationController?.viewControllers[vcCount! - 3])!, animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
-    
-    
 }

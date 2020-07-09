@@ -8,14 +8,12 @@ target 'Questionnaire' do
 pod 'SnapKit'
 pod 'Alamofire'
 pod 'SDWebImage'
-pod 'RxSwift'
-pod 'RxCocoa'
 pod 'SwiftDate', '~> 5.0'
 pod 'Eureka'
 pod 'SwiftyJSON'
 pod 'Realm'
 pod 'Unrealm'
-
+#pod 'ActionClosurable'
 
   # Pods for Questionnaire
 

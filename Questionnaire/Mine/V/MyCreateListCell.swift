@@ -9,8 +9,8 @@
 import UIKit
 
 class MyCreateListCell: UITableViewCell {
+    var bgView: UIImageView!
     var title: UILabel!
-    var statusCirc: StatusCircle!
     var statusBlock: StatusBlock!
     var statusLabel: UILabel!
     var countLabel: UILabel!
@@ -18,13 +18,19 @@ class MyCreateListCell: UITableViewCell {
     
     var line: CAShapeLayer!
     
-    let lOffset: CGFloat = screen.width / 8
+    let lOffset: CGFloat = screen.width / 10
     let lineX: CGFloat = screen.width * 0.75
     let countCenterX = screen.width * (1 + 0.75) / 2
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        frame = CGRect(x: 0, y: 0, width: screen.width, height: 60)
+        frame = CGRect(x: 0, y: 0, width: screen.width, height: 180)
+        
+        bgView = UIImageView(frame: self.frame)
+        bgView.image = UIImage(named: "mycreate_cell_bgview")
+        bgView.contentMode = .scaleAspectFit
+        contentView.addSubview(bgView)
+        
         title = UILabel()
         title.font = .systemFont(ofSize: 20, weight: .bold)
         contentView.addSubview(title)
@@ -33,14 +39,14 @@ class MyCreateListCell: UITableViewCell {
             make.centerY.equalTo(frame.height / 3)
         }
         
-        statusBlock = StatusBlock(frame: CGRect(x: lOffset, y: frame.height / 2, width: frame.width, height: frame.height / 2), status: PaperStatus.notPub)
+        statusBlock = StatusBlock(frame: CGRect(x: lOffset, y: frame.height / 2, width: frame.width, height: frame.height / 4), status: PaperStatus.notPub)
         contentView.addSubview(statusBlock)
         
-        line = lineMake(color: UIColor.systemGray, lineWidth: 0.8, points: CGPoint(x: lineX, y: 10), CGPoint(x: lineX, y: frame.height - 10))
+        line = lineMake(color: TColor.main, lineWidth: 0.8, points: CGPoint(x: lineX, y: 40), CGPoint(x: lineX, y: frame.height - 40))
         contentView.layer.addSublayer(line)
         
         countLabel = UILabel()
-        countLabel.font = .systemFont(ofSize: 14, weight: .semibold)
+        countLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         countLabel.textColor = TColor.main
         contentView.addSubview(countLabel)
         countLabel.snp.updateConstraints { (make) in

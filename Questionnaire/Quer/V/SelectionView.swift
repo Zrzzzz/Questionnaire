@@ -36,7 +36,7 @@ class SelectionView: UIView {
         isSelected = false
     }
     
-    @objc func btnOnTouched() {
+    @objc fileprivate func btnOnTouched() {
         isSelected.toggle()
         if isSelected {
             btn.setImage(SelectionImage(isSelected: true, frame: CGRect(x: 0, y: 0, width: 20, height: 20)).asImage(), for: .normal)

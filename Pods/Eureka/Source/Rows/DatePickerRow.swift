@@ -52,6 +52,7 @@ open class DatePickerCell: Cell<Date>, CellType {
         editingAccessoryType =  .none
         height = { UITableView.automaticDimension }
         datePicker.datePickerMode = datePickerMode()
+        datePicker.locale = Locale(identifier: "zh")
         datePicker.addTarget(self, action: #selector(DatePickerCell.datePickerValueChanged(_:)), for: .valueChanged)
     }
 

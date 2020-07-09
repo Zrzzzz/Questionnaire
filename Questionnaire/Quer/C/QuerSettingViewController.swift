@@ -70,12 +70,12 @@ class QuerSettingViewController: UIViewController {
         
     }
     
-    @objc func toRVC() {
+    @objc fileprivate func toRVC() {
         let rVC = RandomQSetViewController()
         navigationController?.pushViewController(rVC, animated: true)
     }
     
-    @objc func ret() {
+    @objc fileprivate func ret() {
         navigationController?.popViewController(animated: true)
     }
 }

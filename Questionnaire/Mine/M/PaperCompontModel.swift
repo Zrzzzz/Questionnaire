@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Unrealm
 
 
-enum PaperType: Int, Codable {
+enum PaperType: Int, Codable, RealmableEnumInt {
     case quer = 0
     case test = 1
     case vote = 2
@@ -23,7 +24,7 @@ enum PaperType: Int, Codable {
     }
 }
 
-enum PaperStatus: Int, Codable {
+enum PaperStatus: Int, Codable, RealmableEnum {
     case notPub = 2
     case pubed = 0
     case overed = 1
@@ -38,4 +39,8 @@ enum PaperStatus: Int, Codable {
             return "已结束"
         }
     }
+}
+
+enum QuesType {
+    case single, mutliple, blank
 }

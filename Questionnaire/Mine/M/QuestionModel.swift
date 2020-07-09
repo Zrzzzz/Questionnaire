@@ -14,24 +14,28 @@ import Unrealm
 // MARK: - Blank
 class Blank: Realmable, Codable {
     required init() {
-        (id, question, rightAnswer) = ("", "", "")
+        (id, question, rightAnswer) = ("", "", nil)
         necessary = 0
+        score = 0
     }
     
-    var id, question, rightAnswer: String
-    var necessary: Int
+    var id, question: String
+    var rightAnswer: String?
+    var necessary, score: Int
 
     enum CodingKeys: String, CodingKey {
         case id, question
         case rightAnswer = "right_answer"
         case necessary
+        case score
     }
 
-    init(id: String, question: String, rightAnswer: String, necessary: Int) {
+    init(id: String, question: String, rightAnswer: String?, necessary: Int, score: Int) {
         self.id = id
         self.question = question
         self.rightAnswer = rightAnswer
         self.necessary = necessary
+        self.score = score
     }
 }
 
@@ -40,7 +44,7 @@ class Blank: Realmable, Codable {
 extension Blank {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(Blank.self, from: data)
-        self.init(id: me.id, question: me.question, rightAnswer: me.rightAnswer, necessary: me.necessary)
+        self.init(id: me.id, question: me.question, rightAnswer: me.rightAnswer ?? "", necessary: me.necessary, score: me.score)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -52,20 +56,6 @@ extension Blank {
 
     convenience init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        id: String? = nil,
-        question: String? = nil,
-        rightAnswer: String? = nil,
-        necessary: Int? = nil
-    ) -> Blank {
-        return Blank(
-            id: id ?? self.id,
-            question: question ?? self.question,
-            rightAnswer: rightAnswer ?? self.rightAnswer,
-            necessary: necessary ?? self.necessary
-        )
     }
 
     func jsonData() throws -> Data {
@@ -81,29 +71,31 @@ extension Blank {
 class Multiple: Realmable, Codable {
     var id, question: String
     var options: [String]
-    var rightAnswer: [Int]
-    var random, necessary: Int
+    var rightAnswer: [Int]?
+    var random, necessary, score: Int
 
     enum CodingKeys: String, CodingKey {
         case id, question, options
         case rightAnswer = "right_answer"
         case random, necessary
+        case score
     }
 
-    init(id: String, question: String, options: [String], rightAnswer: [Int], random: Int, necessary: Int) {
+    init(id: String, question: String, options: [String], rightAnswer: [Int]?, random: Int, necessary: Int, score: Int) {
         self.id = id
         self.question = question
         self.options = options
         self.rightAnswer = rightAnswer
         self.random = random
         self.necessary = necessary
+        self.score = score
     }
     
     required init() {
         (id, question) = ("", "")
         options = []
-        rightAnswer = []
-        (random, necessary) = (0, 0)
+        rightAnswer = nil
+        (random, necessary, score) = (0, 0, 0)
     }
 }
 
@@ -112,7 +104,7 @@ class Multiple: Realmable, Codable {
 extension Multiple {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(Multiple.self, from: data)
-        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer, random: me.random, necessary: me.necessary)
+        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? [], random: me.random, necessary: me.necessary, score: me.score)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -124,24 +116,6 @@ extension Multiple {
 
     convenience init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        id: String? = nil,
-        question: String? = nil,
-        options: [String]? = nil,
-        rightAnswer: [Int]? = nil,
-        random: Int? = nil,
-        necessary: Int? = nil
-    ) -> Multiple {
-        return Multiple(
-            id: id ?? self.id,
-            question: question ?? self.question,
-            options: options ?? self.options,
-            rightAnswer: rightAnswer ?? self.rightAnswer,
-            random: random ?? self.random,
-            necessary: necessary ?? self.necessary
-        )
     }
 
     func jsonData() throws -> Data {
@@ -157,26 +131,57 @@ extension Multiple {
 class Single: Realmable, Codable {
     var id, question: String
     var options: [String]
-    var rightAnswer, random, necessary: Int
+    var rightAnswer: Int?
+    var random, necessary, score: Int
 
     enum CodingKeys: String, CodingKey {
         case id, question, options
         case rightAnswer = "right_answer"
         case random, necessary
+        case score
     }
 
-    init(id: String, question: String, options: [String], rightAnswer: Int, random: Int, necessary: Int) {
+    init(id: String, question: String, options: [String], rightAnswer: Int?, random: Int, necessary: Int, score: Int) {
         self.id = id
         self.question = question
         self.options = options
         self.rightAnswer = rightAnswer
         self.random = random
         self.necessary = necessary
+        self.score = score
     }
     
     required init() {
         (id, question) = ("", "")
         options = []
-        (rightAnswer, random, necessary) = (0, 0, 0)
+        (rightAnswer, random, necessary, score) = (nil, 0, 0, 0)
+    }
+}
+
+// MARK: Single convenience initializers and mutators
+
+extension Single {
+    convenience init(data: Data) throws {
+        let me = try newJSONDecoder().decode(Single.self, from: data)
+        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? 0, random: me.random, necessary: me.necessary, score: me.score)
+    }
+
+    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+
+    convenience init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
     }
 }

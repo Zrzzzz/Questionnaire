@@ -32,65 +32,159 @@ class PaperManager {
         Realm.Configuration.defaultConfiguration = Realm.Configuration(fileURL: Realm.Configuration().fileURL, schemaVersion: UInt64(version), migrationBlock: {migration, oldVersion in
             if oldVersion < version {
                 // do SomeThing
+                // TODO: 暂且不处理, 模型更改的时候才有这个问题
+//                migration.enumerateObjects(ofType: <#T##String#>, <#T##block: (MigrationObject?, MigrationObject?) -> Void##(MigrationObject?, MigrationObject?) -> Void#>)
             }
         })
         
+        self.deletePaperAll()
+        
         print("Realm数据库升级成功, 当前版本为 -- \(version)")
     }
+    // 获取数据库
+    static private func getDB() -> Realm? {
+        var realm: Realm
+        do {
+            realm = try Realm()
+            return realm
+        } catch {
+            self.upDateRealmVersion()
+            do {
+                realm = try Realm()
+                return realm
+            } catch {
+                print("升级获取数据库失败")
+            }
+        }
+        return nil
+    }
     
+    // 存储
     static func savePaper(by paper: Paper) {
-        let realm = try? Realm()
-        
-        try? realm?.write {
-            realm?.add(paper)
+        if let realm = getDB() {
+            try? realm.write {
+                realm.add(paper)
+                print(realm.configuration.fileURL)
+                print("保存成功")
+            }
         }
         
     }
     
+    // 获取并更改
     static func modifyPaper(by paper: Paper, _ closure: (Paper) -> Void) {
-        let realm = try? Realm()
+        if let realm = getDB() {
+            if let oldPaper = realm.object(ofType: Paper.self, forPrimaryKey: paper.id) {
+                closure(oldPaper)
+                
+                try? realm.write {
+                    realm.add(oldPaper, update: .modified)
+                }
+            }
+        }
         
-        if let oldPaper = realm?.object(ofType: Paper.self, forPrimaryKey: paper.id) {
-            closure(oldPaper)
-            
-            try? realm?.write {
-                realm?.add(oldPaper, update: .modified)
+        
+    }
+    
+    // 更改
+    static func update(by paper: Paper) {
+        if let realm = getDB() {
+            do {
+                try realm.write {
+                    realm.add(paper, update: .modified)
+                }
+            } catch {
+                print("更新失败")
             }
         }
     }
     
+    // 查询
     static func getPapers() -> [Paper] {
         var papers = [Paper]()
         
-        let realm = try? Realm()
-        if let results = realm?.objects(Paper.self) {
+        if let realm = getDB() {
+            let results = realm.objects(Paper.self)
             papers.append(contentsOf: results)
         }
-    
+        
+        
         return papers
     }
     
+    // 转换成CreatePaper
+    static func getPaperInCreate() -> [MyCreatePaper] {
+        var papers = [Paper]()
+        var createPapers = [MyCreatePaper]()
+        if let realm = getDB() {
+            let results = realm.objects(Paper.self)
+            papers.append(contentsOf: results)
+        }
+        for paper in papers {
+            let createPaper = MyCreatePaper(paperID: paper.id, paperName: paper.paperName, star: paper.star, number: 0, status: .notPub, paperType: paper.paperType)
+            createPapers.append(createPaper)
+        }
+        return createPapers
+    }
+    
+    // 条件查询
     static func querPapers(by predicate: NSPredicate) -> [Paper] {
         var papers = [Paper]()
         
-        let realm = try? Realm()
-        if let results = realm?.objects(Paper.self).filter(predicate) {
+        if let realm = getDB() {
+            let results = realm.objects(Paper.self).filter(predicate)
             papers.append(contentsOf: results)
         }
+        
+        
         
         return papers
     }
     
+    // 删除
     static func deletePaper(by paper: Paper) {
-        do {
-            let realm = try? Realm()
-            
-            try realm?.write {
-                realm?.delete(paper)
+        if let realm = getDB() {
+            do {
+                print(realm.configuration.fileURL)
+                try realm.write {
+                    realm.delete(paper)
+                }
+            } catch {
+                print("删除失败")
             }
-            print(realm?.configuration.fileURL)
-        } catch {
-            fatalError()
+        }
+    }
+    
+    // 条件删除
+    static func deletePapers(by predicate: NSPredicate){
+        
+        if let realm = getDB() {
+            let results = realm.objects(Paper.self).filter(predicate)
+            do {
+                try realm.write {
+                    print(realm.configuration.fileURL)
+                    // i should quote it but not pass its value
+                    for i in 0..<results.count {
+                        realm.delete(results[i])
+                    }
+                }
+            } catch {
+                print("删除失败")
+            }
+        }
+        
+    }
+    
+    // 删除所有
+    static func deletePaperAll() {
+        if let realm = getDB() {
+            do {
+                try realm.write {
+                    realm.deleteAll()
+                }
+            } catch {
+                print("删除失败")
+            }
         }
     }
 }

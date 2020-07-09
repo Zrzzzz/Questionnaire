@@ -63,11 +63,11 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @objc private func forget() {
+    @objc fileprivate func forget() {
         print("忘记密码")
     }
     
-    @objc private func check() {
+    @objc fileprivate func check() {
         PaperManager.setDefaultRealmForUser(username: "ZZX")
         navigationController?.popViewController(animated: true)
     }

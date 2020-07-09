@@ -19,21 +19,16 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
-        
+        view.backgroundColor = TColor.bar
+        setStatusBar()
+//        drawSearchController()
+        drawNavigationBar()
+        drawCollectionView()
     }
 }
 
 //MARK: - UI
 extension HomeViewController: UISearchControllerDelegate {
-    
-    private func setUp() {
-        view.backgroundColor = TColor.bar
-        setStatusBar()
-        drawSearchController()
-        drawNavigationBar()
-        drawCollectionView()
-    }
     
     private func drawSearchController() {
         let resultsTableViewController = SearchResultsTableViewController()
@@ -41,7 +36,7 @@ extension HomeViewController: UISearchControllerDelegate {
         searchController = UISearchController(searchResultsController: resultsTableViewController)
         searchController.delegate = self
         searchController.searchResultsUpdater = resultsTableViewController
-//        definesPresentationContext = true
+        //        definesPresentationContext = true
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "取消"
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .white
         searchController.searchBar.delegate = resultsTableViewController
@@ -54,24 +49,24 @@ extension HomeViewController: UISearchControllerDelegate {
     
     private func setStatusBar() {
         if #available(iOS 13.0, *) {
-
-
-           let statusBar1 =  UIView()
+            
+            
+            let statusBar1 = UIView()
             statusBar1.frame = UIApplication.shared.keyWindow?.windowScene?.statusBarManager!.statusBarFrame as! CGRect
             statusBar1.backgroundColor = TColor.main
-
-           UIApplication.shared.keyWindow?.addSubview(statusBar1)
-
+            
+            UIApplication.shared.keyWindow?.addSubview(statusBar1)
+            
         } else {
-
-           let statusBar1: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-           statusBar1.backgroundColor = UIColor.black
+            
+            let statusBar1: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+            statusBar1.backgroundColor = UIColor.black
         }
     }
     
     private func drawNavigationBar() {
         navigationItem.title = "问卷答题投票"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .plain, target: self, action: #selector(sideListOnTouch))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(sideListOnTouch))
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.barTintColor = TColor.bar
         navigationController?.navigationBar.backgroundColor = TColor.bar
@@ -99,7 +94,7 @@ extension HomeViewController: UISearchControllerDelegate {
 
 //MARK: - Select Method
 extension HomeViewController {
-    @objc func sideListOnTouch() {
+    @objc fileprivate func sideListOnTouch() {
         navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 }
@@ -150,10 +145,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let mineVC = MyCreateViewController()
             navigationController?.pushViewController(mineVC, animated: true)
         case 3:
-           return
+            return
         default:
             return
-
+            
         }
     }
 }

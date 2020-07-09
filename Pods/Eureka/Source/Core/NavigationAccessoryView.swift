@@ -38,7 +38,8 @@ public protocol NavigationAccessory {
 open class NavigationAccessoryView: UIToolbar, NavigationAccessory {
     open var previousButton: UIBarButtonItem!
     open var nextButton: UIBarButtonItem!
-    open var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
+//    open var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
+    open var doneButton = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(didTapDone))
     private var fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
     private var flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 

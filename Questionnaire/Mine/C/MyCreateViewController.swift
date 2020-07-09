@@ -8,8 +8,6 @@
 
 import UIKit
 
-let jsonData = "{\"user_id\": 1234,     \"paper_name\": \"ZZZ\",     \"paper_comment\": \"dw\",     \"start_time\": 1234,     \"end_time\": 1234,     \"paper_type\": \"\",     \"paper_question\": {         \"single\": [{             \"question\": \"wdwd\",             \"options\": [                 \"hhaha\", \"hahhaha\"             ],             \"right_answer\": 3,             \"random\": 0,             \"necessary\": 0         }],         \"multiple\": [{             \"question\": \"wdawda\",             \"options\": [                 \"hhaha\", \"hahhaha\"             ],             \"right_answer\": [1, 2],             \"random\": 0,             \"necessary\": 0         }],         \"blank\": [{             \"id\": \"dwad\",             \"question\": \"wjdawd\",             \"right_answer\": \"wdawd\",             \"necessary\": 0         }]     },     \"random\": 123,     \"times\": 123 }"
-
 class MyCreateViewController: UIViewController {
     // UI控件
     var searchController: UISearchController!
@@ -17,6 +15,7 @@ class MyCreateViewController: UIViewController {
     var testModeBtn: UIButton!
     var voteModeBtn: UIButton!
     var tableView: UITableView!
+    var scrollView: MyCreateScrollView?
     // 变量
     let btnWidth = (screen.width - 20) / 3
     let cellId = "Questionnaire.MyCreateView.cell"
@@ -24,21 +23,30 @@ class MyCreateViewController: UIViewController {
     var paperList: [MyCreatePaper] = [] // 这个用来存储刷新的数据
     
     var filterList: [MyCreatePaper] = [] {
-        didSet { tableView.reloadData() }
+        didSet {
+//            if let tableViews = scrollView?.tableViews {
+//                tableViews.map {
+//                    $0.reloadData()
+//                }
+//            }
+            scrollView?.refresh(cellHeight: 180, dataCount: filterList.count)
+
+        }
     }// 这个用来做过滤等操作
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         // 刷新数据
-        paperList = getData()
+        paperList = NetManager.getCreatePaper(type: .quer)
         filterList = paperList
+        
+        scrollView?.refresh(cellHeight: 180, dataCount: paperList.count)
     }
 }
 
@@ -47,40 +55,57 @@ class MyCreateViewController: UIViewController {
 //MARK: - Delegate
 extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filterList.count
+        switch tableView {
+        case scrollView?.tableViews?.last:
+            return filterList.count % scrollView!.cellCount == 0 ? scrollView!.cellCount : filterList.count % scrollView!.cellCount
+        default:
+            return scrollView!.cellCount
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let pageIndex: Int = {
+            let i = scrollView!.tableViews?.firstIndex { (tv) -> Bool in
+                tv == tableView
+            }
+            return i ?? 0
+        }()
+        
         let cell: MyCreateListCell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyCreateListCell
-        cell.set(paper: filterList[indexPath.row])
+        cell.set(paper: filterList[indexPath.row + scrollView!.cellCount * pageIndex])
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 180
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alert = UIAlertController(title: "选择操作", message: nil, preferredStyle: .alert)
         let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let action2 = UIAlertAction(title: "编辑", style: .default) { _ in
-            
-            
+            let paper = PaperManager.querPapers(by: NSPredicate(format: "paperName like %@", self.filterList[indexPath.row].paperName))[0]
+            let vc = EditPaperViewController()
+            vc.paper = paper
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         let action3 = UIAlertAction(title: "删除", style: .destructive) { _ in
             // TODO: 删除Paper
+            PaperManager.deletePapers(by: NSPredicate(format: "id like %@", self.filterList[indexPath.row].paperID))
             self.paperList.removeAll { (paper) -> Bool in
                 paper.paperID == self.filterList[indexPath.row].paperID
             }
             self.searchController.searchBar.text = self.searchController.searchBar.text
-            tableView.reloadData()
+            self.scrollView?.reloadInputViews()
         }
         alert.addAction(action1)
         alert.addAction(action2)
         alert.addAction(action3)
         
         self.present(alert, animated: true)
+        // 取消选定
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -93,17 +118,17 @@ extension MyCreateViewController {
         // 搜索栏设置
         searchController = UISearchController()
         searchController.hidesNavigationBarDuringPresentation = false
+        // 外观设置
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "取消"
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "搜索个屁", attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange])
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .white
         if let textfield = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textfield.backgroundColor = .white
+            textfield.placeholder = "搜索"
+            textfield.attributedPlaceholder = NSAttributedString(string: "搜索", attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange])
             if let leftView = textfield.leftView as? UIImageView {
                 leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
                 leftView.tintColor = TColor.main
             }
         }
-        
-        
         
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
@@ -111,7 +136,6 @@ extension MyCreateViewController {
         // 标题
         self.title = "我创建的"
         
-       
         querModeBtn = createFilterBtn(title: "问卷", tag: 0) { (btn) in
             self.view.addSubview(btn)
             btn.snp.makeConstraints { (make) in
@@ -132,7 +156,7 @@ extension MyCreateViewController {
             btn.setCornerRadius(radius: btnWidth / 2)
         }
         
-        voteModeBtn = createFilterBtn(title: "问卷", tag: 0) { (btn) in
+        voteModeBtn = createFilterBtn(title: "投票", tag: 2) { (btn) in
             self.view.addSubview(btn)
             btn.snp.makeConstraints { (make) in
                 make.width.height.equalTo(btnWidth)
@@ -142,16 +166,30 @@ extension MyCreateViewController {
             btn.setCornerRadius(radius: btnWidth / 2)
         }
         
-        tableView = UITableView()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(MyCreateListCell.self, forCellReuseIdentifier: cellId)
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(querModeBtn.snp_bottom).offset(10)
-            make.width.equalTo(screen.width)
-            make.height.equalTo(screen.height - 150 - btnWidth - 10)
-        }
+        //        tableView = UITableView()
+        //        tableView.dataSource = self
+        //        tableView.delegate = self
+        //        tableView.register(MyCreateListCell.self, forCellReuseIdentifier: cellId)
+        //        view.addSubview(tableView)
+        //        tableView.snp.makeConstraints { (make) in
+        //            make.top.equalTo(querModeBtn.snp_bottom).offset(10)
+        //            make.width.equalTo(screen.width)
+        //            make.height.equalTo(screen.height - 150 - btnWidth - 10)
+        //        }
+        
+        scrollView = MyCreateScrollView(frame: CGRect(x: 0, y: btnWidth + 160, width: screen.width, height: screen.height - 150 - btnWidth - 10), addPageControl: { (pageControl) in
+            self.view.addSubview(pageControl)
+        })
+        scrollView?.tableViewDataSource = self
+        scrollView?.tableViewDelegate = self
+//        if let tableViews = scrollView?.tableViews {
+//            tableViews.map {
+//                $0.reloadData()
+//            }
+//        }
+        self.view.addSubview(scrollView!)
+        self.view.bringSubviewToFront(scrollView!.pageControl)
+        
     }
     
     private func createFilterBtn(title: String, tag: Int, snpSet: (UIButton) -> Void) -> UIButton {
@@ -171,9 +209,8 @@ extension MyCreateViewController {
 //MARK: - 数据处理
 extension MyCreateViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard searchController.searchBar.text != "" && paperList.contains(where: { (item) -> Bool in
-            item.paperName.contains(searchController.searchBar.text!)
-        }) else {
+        print(searchController.searchBar.text!)
+        guard searchController.searchBar.text! != "" else {
             filterList = paperList
             return
         }
@@ -184,36 +221,18 @@ extension MyCreateViewController: UISearchResultsUpdating {
         
     }
     
-    private func getData() -> [MyCreatePaper] {
-        var papers = [MyCreatePaper]()
-        for i in 1...3 {
-            papers.append(MyCreatePaper(paperID: UUID().uuidString, paperName: "问卷\(i)", star: 1, number: 999, status: .notPub, paperType: .quer))
-        }
-        for i in 1...3 {
-            papers.append(MyCreatePaper(paperID: UUID().uuidString, paperName: "投票\(i)", star: 1, number: 999, status: .notPub, paperType: .vote))
-        }
-        for i in 1...3 {
-            papers.append(MyCreatePaper(paperID: UUID().uuidString, paperName: "答题\(i)", star: 1, number: 999, status: .notPub, paperType: .test))
-        }
-
-        return papers
-        
-    }
     
-    @objc private func changeList(btn: UIButton) {
-        let s: PaperType
+    
+    @objc fileprivate func changeList(btn: UIButton) {
         switch btn.tag {
         case 0:
-            s = PaperType.quer
+            paperList = NetManager.getCreatePaper(type: .quer)
         case 1:
-            s = PaperType.test
+            paperList = NetManager.getCreatePaper(type: .test)
         default:
-            s = PaperType.vote
+            paperList = NetManager.getCreatePaper(type: .vote)
         }
-        filterList = paperList.filter{
-            $0.paperType == s
-        }
-        
+        filterList = paperList
     }
 }
 

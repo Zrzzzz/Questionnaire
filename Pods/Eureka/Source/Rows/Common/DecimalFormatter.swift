@@ -31,7 +31,7 @@ open class DecimalFormatter: NumberFormatter, FormatterProtocol {
     /// Creates the formatter with 2 Fraction Digits, Locale set to .current and .decimal NumberFormatter.Style
     public override init() {
         super.init()
-        locale = Locale.current
+        locale = Locale(identifier: "zh")
         numberStyle = .decimal
         minimumFractionDigits = 2
         maximumFractionDigits = 2

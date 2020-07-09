@@ -73,6 +73,7 @@ open class _DateTimeInlineRow: _DateInlineFieldRow {
         super.init(tag: tag)
         dateFormatter?.timeStyle = .short
         dateFormatter?.dateStyle = .short
+        dateFormatter?.locale = Locale(identifier: "zh")
     }
 
     open func setupInlineRow(_ inlineRow: DateTimePickerRow) {

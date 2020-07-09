@@ -49,7 +49,7 @@ class HomeViewCell: UICollectionViewCell {
         
         arrow = UIImageView()
         bgView.addSubview(arrow)
-        arrow.image = UIImage(systemName: "chevron.right")?.withRenderingMode(.alwaysOriginal)
+        arrow.image = UIImage(named: "right_arrow")?.withRenderingMode(.alwaysOriginal)
         arrow.snp.makeConstraints { (make) in
             make.centerY.equalTo(self)
             make.right.equalTo(bgView.snp_right).offset(-10)

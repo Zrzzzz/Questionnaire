@@ -71,7 +71,7 @@ open class _DateInlineFieldRow: Row<DateInlineCell>, DatePickerRowProtocol, NoVa
     required public init(tag: String?) {
         super.init(tag: tag)
         dateFormatter = DateFormatter()
-        dateFormatter?.locale = Locale.current
+        dateFormatter?.locale = Locale(identifier: "zh")
         displayValueFor = { [unowned self] value in
             guard let val = value, let formatter = self.dateFormatter else { return nil }
             return formatter.string(from: val)
