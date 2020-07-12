@@ -9,6 +9,9 @@
 import UIKit
 import Unrealm
 
+enum MyType {
+    case join, create
+}
 
 enum PaperType: Int, Codable, RealmableEnumInt {
     case quer = 0

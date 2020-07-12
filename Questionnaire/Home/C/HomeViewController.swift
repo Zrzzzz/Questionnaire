@@ -24,6 +24,8 @@ class HomeViewController: UIViewController {
 //        drawSearchController()
         drawNavigationBar()
         drawCollectionView()
+        
+        NetManager.test()
     }
 }
 
@@ -142,13 +144,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let mineVC = MyCreateViewController()
             navigationController?.pushViewController(mineVC, animated: true)
         case 2:
-            let mineVC = MyCreateViewController()
+            let mineVC = MyJoinViewController()
             navigationController?.pushViewController(mineVC, animated: true)
         case 3:
             return
         default:
             return
-            
         }
     }
 }

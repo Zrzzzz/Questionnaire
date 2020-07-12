@@ -45,6 +45,8 @@
 		D3F5021624B6089E003379F1 /* QuerEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021424B6089E003379F1 /* QuerEditViewController.swift */; };
 		D3F5021724B6089E003379F1 /* RandomQSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021524B6089E003379F1 /* RandomQSetViewController.swift */; };
 		D3F5021A24B714E1003379F1 /* EditPaperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021924B714E1003379F1 /* EditPaperDelegate.swift */; };
+		D3F5021D24B7F94E003379F1 /* MyJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021C24B7F94E003379F1 /* MyJoinViewController.swift */; };
+		D3F5021F24B7FA15003379F1 /* MyJoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */; };
 		D3F77F16245AB83B00E10220 /* NewLongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F11245AB83B00E10220 /* NewLongPressGesture.swift */; };
 		D3F77F17245AB83B00E10220 /* NewTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F12245AB83B00E10220 /* NewTapGesture.swift */; };
 		D3F77F18245AB83B00E10220 /* NewPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F13245AB83B00E10220 /* NewPanGesture.swift */; };
@@ -103,6 +105,8 @@
 		D3F5021424B6089E003379F1 /* QuerEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerEditViewController.swift; sourceTree = "<group>"; };
 		D3F5021524B6089E003379F1 /* RandomQSetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomQSetViewController.swift; sourceTree = "<group>"; };
 		D3F5021924B714E1003379F1 /* EditPaperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPaperDelegate.swift; sourceTree = "<group>"; };
+		D3F5021C24B7F94E003379F1 /* MyJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoinViewController.swift; sourceTree = "<group>"; };
+		D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoinListCell.swift; sourceTree = "<group>"; };
 		D3F77F11245AB83B00E10220 /* NewLongPressGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewLongPressGesture.swift; sourceTree = "<group>"; };
 		D3F77F12245AB83B00E10220 /* NewTapGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTapGesture.swift; sourceTree = "<group>"; };
 		D3F77F13245AB83B00E10220 /* NewPanGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPanGesture.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				D3B2F9CE2452F441004BC23D /* MyCreateViewController.swift */,
+				D3F5021C24B7F94E003379F1 /* MyJoinViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 			children = (
 				D3F501F324B16C10003379F1 /* MyCreateScrollView.swift */,
 				D3B2F9D224530173004BC23D /* MyCreateListCell.swift */,
+				D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */,
 				D329375D248112B30039385C /* StatusBlock.swift */,
 				D3B2F9D4245302B0004BC23D /* StatusCircle.swift */,
 			);
@@ -627,9 +633,11 @@
 				D3F77FAA2460790700E10220 /* TotalFunc.swift in Sources */,
 				D32939152483AD9A0039385C /* EditPaperViewController.swift in Sources */,
 				D3F501E524AE021C003379F1 /* PaperQuesionModel.swift in Sources */,
+				D3F5021F24B7FA15003379F1 /* MyJoinListCell.swift in Sources */,
 				D329375C248102570039385C /* SearchResultsTableViewController.swift in Sources */,
 				D3B2F9D324530173004BC23D /* MyCreateListCell.swift in Sources */,
 				D3F77F17245AB83B00E10220 /* NewTapGesture.swift in Sources */,
+				D3F5021D24B7F94E003379F1 /* MyJoinViewController.swift in Sources */,
 				D32939122483AAB50039385C /* QuestionCollectionViewCell.swift in Sources */,
 				D3F5020124B449F5003379F1 /* SingleAddViewController.swift in Sources */,
 				D3B2F9CF2452F441004BC23D /* MyCreateViewController.swift in Sources */,

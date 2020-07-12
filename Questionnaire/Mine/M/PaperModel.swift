@@ -17,7 +17,8 @@ import Unrealm
 
 // MARK: - Paper
 class Paper: Realmable, Codable {
-    var id, paperName: String
+    var id: Int
+    var paperName: String
     var paperComment: String?
     var startTime, endTime, timeLimit: Int
     var paperType: PaperType
@@ -50,7 +51,7 @@ class Paper: Realmable, Codable {
     }
     
     required init() {
-        (id, paperName) = (UUID().uuidString, "")
+        (id, paperName) = (Int.random(in: 1..<Int.max), "")
         paperType = PaperType.quer
         paperComment = nil
         (startTime, endTime, random, times, timeLimit, needCheck) = (0, 0, 0, 0, -1, 0)
@@ -58,7 +59,7 @@ class Paper: Realmable, Codable {
         star = 0
     }
 
-    required init(id: String, paperName: String, paperComment: String, startTime: Int, endTime: Int, paperType: PaperType, paperQuestion: PaperQuestion, random: Int, times: Int, timeLimit: Int, needCheck: Int, star: Int) {
+    required init(id: Int, paperName: String, paperComment: String?, startTime: Int, endTime: Int, paperType: PaperType, paperQuestion: PaperQuestion, random: Int, times: Int, timeLimit: Int, needCheck: Int, star: Int) {
         self.id = id
         self.paperName = paperName
         self.paperComment = paperComment

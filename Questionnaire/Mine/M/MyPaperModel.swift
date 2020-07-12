@@ -12,9 +12,11 @@ import SwiftyJSON
 
 // MARK: - MyJoinPaper
 struct MyJoinPaper: Codable {
-    var paperID, paperName: String
+    var paperID: Int
+    var paperName: String
     var startTime, endTime, score: Int?
-    var paperType: PaperType?
+    var status: PaperStatus
+    var paperType: PaperType
     var lastTime, times: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -23,6 +25,7 @@ struct MyJoinPaper: Codable {
         case startTime = "start_time"
         case endTime = "end_time"
         case paperType = "paper_type"
+        case status
         case score
         case lastTime = "last_time"
         case times
@@ -63,7 +66,8 @@ extension MyJoinPaper {
 
 // MARK: - MyCreatePaper
 struct MyCreatePaper: Codable {
-    var paperID, paperName: String
+    var paperID: Int
+    var paperName: String
     var star, number: Int
     var status: PaperStatus
     var paperType: PaperType

@@ -7,7 +7,23 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A18D59D2-2373-467A-A3C7-45C95668D1D5"
+            uuid = "EEF61645-02A4-44AF-A299-D6BC7903A4A3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Questionnaire/Mine/C/MyCreateViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7B2D6050-3492-4BC5-B87B-99190A12F93F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -23,7 +39,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4B42D914-43A2-42A1-A1CE-BD74346AA7F7"
+            uuid = "66097103-237E-4384-8965-5D5E86645B89"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -39,7 +55,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E7DE4DA0-14DA-4D55-AC08-23C59343A0C3"
+            uuid = "E839EE75-A6AD-43A6-85F0-EB3BF5EE12D3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -52,7 +68,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E7DE4DA0-14DA-4D55-AC08-23C59343A0C3 - c43dad0876437f8f"
+                  uuid = "E839EE75-A6AD-43A6-85F0-EB3BF5EE12D3 - c43dad0876437f8f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -67,7 +83,7 @@
                   offsetFromSymbolStart = "362">
                </Location>
                <Location
-                  uuid = "E7DE4DA0-14DA-4D55-AC08-23C59343A0C3 - b6f6de1d16250fcf"
+                  uuid = "E839EE75-A6AD-43A6-85F0-EB3BF5EE12D3 - b6f6de1d16250fcf"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -79,7 +95,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
                   endingLineNumber = "165"
-                  offsetFromSymbolStart = "103">
+                  offsetFromSymbolStart = "157">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -87,63 +103,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DD787240-C065-4386-9B0F-7DDF631659C7"
+            uuid = "29352E5D-1973-494A-81C8-9814F479901B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Questionnaire/DataBase/PaperManger.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "deletePapers(by:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DD787240-C065-4386-9B0F-7DDF631659C7 - c43dad0876437f8f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Questionnaire.PaperManager.deletePapers(by: __C.NSPredicate) -&gt; ()"
-                  moduleName = "Questionnaire"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zrzz/Coding/iOS/Project/Questionnaire/Questionnaire/DataBase/PaperManger.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "613">
-               </Location>
-               <Location
-                  uuid = "DD787240-C065-4386-9B0F-7DDF631659C7 - c43dad0876437f8f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Questionnaire.PaperManager.deletePapers(by: __C.NSPredicate) -&gt; ()"
-                  moduleName = "Questionnaire"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zrzz/Coding/iOS/Project/Questionnaire/Questionnaire/DataBase/PaperManger.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "795">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0399275E-FC59-4B6B-95EA-6F5B8A872DA6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Questionnaire/DataBase/PaperManger.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "deletePapers(by:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -151,8 +119,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F5C2CAE0-8094-4A48-89A4-54DC70B1DCBD"
-            shouldBeEnabled = "Yes"
+            uuid = "ECCB987D-BC08-4EC2-93B9-09A470511FE1"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Questionnaire/DataBase/PaperManger.swift"
@@ -160,6 +128,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "167"
             endingLineNumber = "167"
+            landmarkName = "deletePapers(by:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "50F99F49-EBCD-4CD6-B90A-3929F2F8E4EE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Questionnaire/DataBase/PaperManger.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "deletePapers(by:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98118D12-5307-47E5-9D38-3336A1F543A4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Questionnaire/DataBase/PaperManger.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "deletePapers(by:)"
             landmarkType = "7">
          </BreakpointContent>

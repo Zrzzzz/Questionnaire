@@ -30,6 +30,7 @@ class CreatePaperViewController: FormViewController {
             }
             <<< TextRow("explain") {
                 $0.title = type.string() + "说明"
+                $0.placeholder = "选填"
             }
             <<< DateTimeInlineRow("startTime") {
                 $0.title = "开始时间"
@@ -67,10 +68,10 @@ class CreatePaperViewController: FormViewController {
             .onCellSelection { cell, row in
                 
                 if let title = (self.form.rowBy(tag: "title") as! TextRow).value ,
-                    let explain = (self.form.rowBy(tag: "explain") as! TextRow).value,
                     let start = (self.form.rowBy(tag: "startTime") as! DateTimeInlineRow).value,
                     let end = (self.form.rowBy(tag: "endTime") as! DateTimeInlineRow).value {
-                    let newPaper = Paper(id: UUID().uuidString, paperName: title, paperComment: explain, startTime: Int(start.timeIntervalSince1970), endTime: Int(end.timeIntervalSince1970), paperType: self.type, paperQuestion: PaperQuestion(), random: 0, times: 0, timeLimit: 0, needCheck: 0, star: 0)
+                    let explain = (self.form.rowBy(tag: "explain") as! TextRow).value
+                    let newPaper = Paper(id: Int.random(in: 1..<Int.max), paperName: title, paperComment: explain, startTime: Int(start.timeIntervalSince1970), endTime: Int(end.timeIntervalSince1970), paperType: self.type, paperQuestion: PaperQuestion(), random: 0, times: 0, timeLimit: 0, needCheck: 0, star: 0)
                     PaperManager.savePaper(by: newPaper)
 
                     let editVC = EditPaperViewController()
@@ -79,7 +80,7 @@ class CreatePaperViewController: FormViewController {
                     self.navigationController?.pushViewController(editVC, animated: true)
                     return
                 }
-                let alert = UIAlertController(title: "错误", message: "请输入正确的标题和说明", preferredStyle: .alert)
+                let alert = UIAlertController(title: "错误", message: "请输入正确的标题", preferredStyle: .alert)
                 let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                 let action2 = UIAlertAction(title: "确定", style: .default, handler: nil)
                 alert.addAction(action1)

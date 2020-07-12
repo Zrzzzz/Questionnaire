@@ -1,5 +1,5 @@
 //
-//  MyCreateScrollView.swift
+//  MyPaperScrollView.swift
 //  Questionnaire
 //
 //  Created by Zr埋 on 2020/7/5.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyCreateScrollView: UIScrollView, UIScrollViewDelegate {
+class MyPaperScrollView: UIScrollView, UIScrollViewDelegate {
     /* UI */
     var tableViews: [UITableView?]? = []
     var pageControl = UIPageControl()
@@ -23,8 +23,9 @@ class MyCreateScrollView: UIScrollView, UIScrollViewDelegate {
     var tableViewHeight: CGFloat = 0
     // 页数
     var pageCount: Int = 0
-    
-    init(frame: CGRect, addPageControl: (UIPageControl) -> Void) {
+    // join or create
+    var type = MyType.join
+    init(frame: CGRect, type: MyType, addPageControl: (UIPageControl) -> Void) {
         super.init(frame: frame)
         
         //MARK: - SetupSelf
@@ -42,7 +43,8 @@ class MyCreateScrollView: UIScrollView, UIScrollViewDelegate {
         contentOffset = CGPoint.zero
         // 代理
         delegate = self
-        
+        // myType
+        self.type = type
         
         //MARK: - SetupPageControl
         
@@ -92,7 +94,11 @@ class MyCreateScrollView: UIScrollView, UIScrollViewDelegate {
             // 滚动
             tableView.isScrollEnabled = false
             tableView.separatorStyle = .none
-            tableView.register(MyCreateListCell.self, forCellReuseIdentifier: "Questionnaire.MyCreateView.cell")
+            if type == .create {
+                tableView.register(MyCreateListCell.self, forCellReuseIdentifier: "Questionnaire.MyCreateView.cell")
+            } else {
+                tableView.register(MyJoinListCell.self, forCellReuseIdentifier: "Questionnaire.MyJoinView.cell")
+            }
             
             tableViews?.append(tableView)
             self.addSubview(tableView)

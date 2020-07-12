@@ -1,14 +1,14 @@
 //
-//  MineViewController.swift
+//  MyJoinViewController.swift
 //  Questionnaire
 //
-//  Created by Zr埋 on 2020/4/24.
+//  Created by Zr埋 on 2020/7/10.
 //  Copyright © 2020 Zr埋. All rights reserved.
 //
 
 import UIKit
 
-class MyCreateViewController: UIViewController {
+class MyJoinViewController: UIViewController {
     // UI控件
     var searchController: UISearchController!
     var querModeBtn: UIButton!
@@ -18,11 +18,11 @@ class MyCreateViewController: UIViewController {
     var scrollView: MyPaperScrollView?
     // 变量
     let btnWidth = (screen.width - 20) / 3
-    let cellId = "Questionnaire.MyCreateView.cell"
+    let cellId = "Questionnaire.MyJoinView.cell"
     // 数据
-    var paperList: [MyCreatePaper] = [] // 这个用来存储刷新的数据
+    var paperList: [MyJoinPaper] = [] // 这个用来存储刷新的数据
     
-    var filterList: [MyCreatePaper] = [] {
+    var filterList: [MyJoinPaper] = [] {
         didSet {
 //            if let tableViews = scrollView?.tableViews {
 //                tableViews.map {
@@ -43,19 +43,17 @@ class MyCreateViewController: UIViewController {
         super.viewWillAppear(true)
         
         // 刷新数据
-        NetManager.getCreatePaper(type: .quer) { (papers) in
-            self.paperList = papers
-            self.filterList = self.paperList
-            
-            self.scrollView?.refresh(cellHeight: 180, dataCount: self.paperList.count)
-        }
+        paperList = NetManager.getJoinPaper(type: .quer)
+        filterList = paperList
+        
+        scrollView?.refresh(cellHeight: 180, dataCount: paperList.count)
     }
 }
 
 
 
 //MARK: - Delegate
-extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
+extension MyJoinViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case scrollView?.tableViews?.last:
@@ -73,7 +71,7 @@ extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
             return i ?? 0
         }()
         
-        let cell: MyCreateListCell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyCreateListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyJoinListCell
         cell.set(paper: filterList[indexPath.row + scrollView!.cellCount * pageIndex])
         return cell
     }
@@ -94,7 +92,7 @@ extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
         
         let action3 = UIAlertAction(title: "删除", style: .destructive) { _ in
             // TODO: 删除Paper
-            PaperManager.deletePapers(by: NSPredicate(format: "id == %d", self.filterList[indexPath.row].paperID))
+            PaperManager.deletePapers(by: NSPredicate(format: "id like %@", self.filterList[indexPath.row].paperID))
             self.paperList.removeAll { (paper) -> Bool in
                 paper.paperID == self.filterList[indexPath.row].paperID
             }
@@ -113,7 +111,7 @@ extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - UI
-extension MyCreateViewController {
+extension MyJoinViewController {
     private func setUp() {
         view.backgroundColor = .systemBackground
         
@@ -136,7 +134,7 @@ extension MyCreateViewController {
         navigationItem.searchController = searchController
         
         // 标题
-        self.title = "我创建的"
+        self.title = "我参与的"
         
         querModeBtn = createFilterBtn(title: "问卷", tag: 0) { (btn) in
             self.view.addSubview(btn)
@@ -168,28 +166,14 @@ extension MyCreateViewController {
             btn.setCornerRadius(radius: btnWidth / 2)
         }
         
-        //        tableView = UITableView()
-        //        tableView.dataSource = self
-        //        tableView.delegate = self
-        //        tableView.register(MyCreateListCell.self, forCellReuseIdentifier: cellId)
-        //        view.addSubview(tableView)
-        //        tableView.snp.makeConstraints { (make) in
-        //            make.top.equalTo(querModeBtn.snp_bottom).offset(10)
-        //            make.width.equalTo(screen.width)
-        //            make.height.equalTo(screen.height - 150 - btnWidth - 10)
-        //        }
-        
-        scrollView = MyPaperScrollView(frame: CGRect(x: 0, y: btnWidth + 160, width: screen.width, height: screen.height - 150 - btnWidth - 10), type: .create, addPageControl: { (pageControl) in
+        scrollView = MyPaperScrollView(frame: CGRect(x: 0, y: btnWidth + 160, width: screen.width, height: screen.height - 150 - btnWidth - 10), type: .join, addPageControl: { (pageControl) in
             self.view.addSubview(pageControl)
         })
         scrollView?.tableViewDataSource = self
         scrollView?.tableViewDelegate = self
-//        if let tableViews = scrollView?.tableViews {
-//            tableViews.map {
-//                $0.reloadData()
-//            }
-//        }
+        
         self.view.addSubview(scrollView!)
+        // 让pageControl在最前面
         self.view.bringSubviewToFront(scrollView!.pageControl)
         
     }
@@ -209,7 +193,7 @@ extension MyCreateViewController {
 }
 
 //MARK: - 数据处理
-extension MyCreateViewController: UISearchResultsUpdating {
+extension MyJoinViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         print(searchController.searchBar.text!)
         guard searchController.searchBar.text! != "" else {
@@ -226,20 +210,12 @@ extension MyCreateViewController: UISearchResultsUpdating {
     @objc fileprivate func changeList(btn: UIButton) {
         switch btn.tag {
         case 0:
-            NetManager.getCreatePaper(type: .quer) { (papers) in
-                self.paperList = papers
-            }
+            paperList = NetManager.getJoinPaper(type: .quer)
         case 1:
-            NetManager.getCreatePaper(type: .test) { (papers) in
-                self.paperList = papers
-            }
+            paperList = NetManager.getJoinPaper(type: .test)
         default:
-            NetManager.getCreatePaper(type: .vote) { (papers) in
-                self.paperList = papers
-            }
+            paperList = NetManager.getJoinPaper(type: .vote)
         }
         filterList = paperList
     }
 }
-
-
