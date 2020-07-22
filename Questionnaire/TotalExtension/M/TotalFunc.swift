@@ -38,7 +38,7 @@ func calcIfValid(_ startTime: Int, _ endTime: Int) -> PaperStatus {
 
 
 /// Make a Line
-func lineMake(color: UIColor = .black, lineWidth: CGFloat = 1, points: CGPoint...) -> CAShapeLayer {
+func LineMake(color: UIColor = .black, lineWidth: CGFloat = 1, points: CGPoint...) -> CAShapeLayer {
     let linePath = UIBezierPath()
     linePath.move(to: points.first!)
     for point in points.dropFirst() {

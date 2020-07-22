@@ -24,6 +24,8 @@ class Paper: Realmable, Codable {
     var paperType: PaperType
     var needCheck: Int
     
+    let userID: Int? = 1234
+    
     var paperQuestion: PaperQuestion
     var random, times, star: Int
     
@@ -48,10 +50,11 @@ class Paper: Realmable, Codable {
         case random, times, star
         case timeLimit = "time_limit"
         case needCheck = "need_check"
+        case userID = "user_id"
     }
     
     required init() {
-        (id, paperName) = (Int.random(in: 1..<Int.max), "")
+        (id, paperName) = (Int.random(in: 1..<100000), "")
         paperType = PaperType.quer
         paperComment = nil
         (startTime, endTime, random, times, timeLimit, needCheck) = (0, 0, 0, 0, -1, 0)

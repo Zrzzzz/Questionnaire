@@ -20,13 +20,13 @@ class NetManager {
         switch type {
         case .quer:
             for i in 1...2 {
-                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<Int.max), paperName: "问卷\(i)", startTime: 0, endTime: 0, score: 99, status: .overed, paperType: .quer, lastTime: Int(Date().timeIntervalSince1970), times: 0))
+                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<100000), paperName: "Test\(i)", paperType: .quer, startTime: 0, endTime: 0, lastTime: Int(Date().timeIntervalSince1970), status: .overed, score: 99, times: 0))
             }
             for i in 3...4 {
-                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<Int.max), paperName: "问卷\(i)", startTime: 0, endTime: 0, score: -1, status: .notPub, paperType: .quer, lastTime: Int(Date().timeIntervalSince1970), times: 0))
+                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<100000), paperName: "Test\(i)", paperType: .quer, startTime: 0, endTime: 0, lastTime: Int(Date().timeIntervalSince1970), status: .notPub, score: -1, times: 0))
             }
             for i in 5...6 {
-                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<Int.max), paperName: "问卷\(i)", startTime: 0, endTime: 0, score: -2, status: .pubed, paperType: .quer, lastTime: Int(Date().timeIntervalSince1970), times: 0))
+                myPapers.append(MyJoinPaper(paperID: Int.random(in: 1..<100000), paperName: "Test\(i)", paperType: .quer, startTime: 0, endTime: 0, lastTime: Int(Date().timeIntervalSince1970), status: .pubed, score: -2, times: 0))
             }
         default:
             print("nothing")
@@ -39,13 +39,10 @@ class NetManager {
     static func getCreatePaper(type: PaperType, _ closure: @escaping ([MyCreatePaper]) -> Void) {
         let userid = 1234
         var myPapers = [MyCreatePaper]()
-//        let group = DispatchGroup()
         switch type {
         case .quer:
-            myPapers.append(contentsOf: PaperManager.getPaperInCreate())
-            let param = ["user_id": userid, "paper_type": 0, "index": -1] as [String : Any]
-//            group.enter()
-            AF.request("http://23.234.202.117/api/getMyPaper",
+            let param = ["user_id": userid, "paper_type": 0, "index": 0] as [String : Any]
+            AF.request(urlHead + "getMyPaper",
                        method: .post,
                        parameters: param,
                        encoding: JSONEncoding.default).validate().responseJSON { (response) in
@@ -53,10 +50,9 @@ class NetManager {
                             let json = try! JSON(data: data)
                             let papers = json["data"]
                             for (_, paperJSON): (String, JSON) in papers {
-                                let paper = try! MyCreatePaper.init(paperJSON.description)
+                                let paper = try! MyCreatePaper.init(paperJSON)
                                     myPapers.append(paper)
                             }
-//                            group.leave()
                             closure(myPapers)
                         }
             }
@@ -64,13 +60,13 @@ class NetManager {
             
         case .test:
             for i in 1...6 {
-                myPapers.append(MyCreatePaper(paperID: Int.random(in: 1..<Int.max), paperName: "答题\(i)", star: 1, number: 999, status: .notPub, paperType: .test))
+                myPapers.append(MyCreatePaper(paperID: Int.random(in: 1..<100000), paperName: "答题\(i)", paperType: .test, status: .notPub, star: 0, number: 0))
             }
             closure(myPapers)
             
         case .vote:
             for i in 1...6 {
-                myPapers.append(MyCreatePaper(paperID: Int.random(in: 1..<Int.max), paperName: "投票\(i)", star: 1, number: 999, status: .notPub, paperType: .vote))
+                myPapers.append(MyCreatePaper(paperID: Int.random(in: 1..<100000), paperName: "投票\(i)", paperType: .vote, status: .notPub, star: 0, number: 0))
             }
             closure(myPapers)
         }
@@ -90,37 +86,20 @@ class NetManager {
         print(joinPaper)
     }
     
-    static func test() {
-        let param = ["user_id": 1234, "paper_type": 0, "index": 0] as [String : Any]
-//        AF.request(urlHead + "getMyPart",
-//                   method: .post,
-//                   parameters: param,
-//                   encoding: JSONEncoding.default).validate().responseJSON { res in
-//                    if let data = res.data {
-//                        print(JSON(data))
-//                        print("请求2")
-//                    }
-//        }
-        
-//        let paper = Paper(id: "hahhahaha", paperName: "woaawda", paperComment: "yoyoyoyo", startTime: 0, endTime: 0, paperType: .quer, paperQuestion: PaperQuestion(), random: 0, times: 1, timeLimit: -1, needCheck: 0, star: 0)
-//        postData(by: paper)
-    }
     
-    static func postData(by paper: Paper) {
-        let tmp = try! paper.jsonData()
-        var data = try? JSONSerialization.jsonObject(with: tmp, options: []) as? [String: Any]
-        data?["user_id"] = 1234
+    static func postPaper(by paper: Paper, onSuccess: @escaping ()->()) {
         
         AF.request(urlHead + "createPaper",
                    method: .post,
-                   parameters:data,
-                   encoding: JSONEncoding.default).validate().responseJSON { (response) in
-            switch response.result {
-            case .success(let value):
-                print(JSON(value))
-            case .failure(let error):
-                print(error)
-            }
+                   parameters: paper,
+                   encoder: JSONParameterEncoder.default).responseJSON { (response) in
+                    switch response.result {
+                    case .success(let data):
+                        print(JSON(data))
+                        onSuccess()
+                    case .failure(let error):
+                        print(error)
+                    }
         }
     }
 }

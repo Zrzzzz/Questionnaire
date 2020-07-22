@@ -22,7 +22,16 @@
 		D3B2F9D12452FFB6004BC23D /* PaperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F9D02452FFB6004BC23D /* PaperModel.swift */; };
 		D3B2F9D324530173004BC23D /* MyCreateListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F9D224530173004BC23D /* MyCreateListCell.swift */; };
 		D3B2F9D5245302B0004BC23D /* StatusCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2F9D4245302B0004BC23D /* StatusCircle.swift */; };
+		D3C69D9B24BAEA110064D9AA /* PaperModeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C69D9A24BAEA110064D9AA /* PaperModeSwitchView.swift */; };
 		D3D49C4024670A9C001F18AF /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49C3F24670A9C001F18AF /* HomeViewCell.swift */; };
+		D3E30A0824C36B7A009AD3BF /* EditPaperCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A0724C36B7A009AD3BF /* EditPaperCollectionViewCell.swift */; };
+		D3E30A0A24C36B8B009AD3BF /* EditQuesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A0924C36B8B009AD3BF /* EditQuesCollectionViewCell.swift */; };
+		D3E30A0C24C36DBE009AD3BF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A0B24C36DBE009AD3BF /* RatingView.swift */; };
+		D3E30A1224C5EE5F009AD3BF /* QuerAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A1124C5EE5F009AD3BF /* QuerAnswerViewController.swift */; };
+		D3E30A1424C5F50F009AD3BF /* AnsSingleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A1324C5F50F009AD3BF /* AnsSingleCollectionViewCell.swift */; };
+		D3E30A1624C7D4ED009AD3BF /* AnsMultipleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A1524C7D4ED009AD3BF /* AnsMultipleCollectionViewCell.swift */; };
+		D3E30A1824C7D7F1009AD3BF /* AnsBlankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A1724C7D7F1009AD3BF /* AnsBlankCollectionViewCell.swift */; };
+		D3E30A1A24C7EF6F009AD3BF /* AnsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E30A1924C7EF6F009AD3BF /* AnsCardView.swift */; };
 		D3F10C93245208AC00B0EB4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F10C92245208AC00B0EB4C /* AppDelegate.swift */; };
 		D3F10C9A245208AC00B0EB4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F10C98245208AC00B0EB4C /* Main.storyboard */; };
 		D3F10C9C245208AD00B0EB4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F10C9B245208AD00B0EB4C /* Assets.xcassets */; };
@@ -40,10 +49,8 @@
 		D3F501F424B16C10003379F1 /* MyCreateScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F501F324B16C10003379F1 /* MyCreateScrollView.swift */; };
 		D3F501FB24B37CA6003379F1 /* SettingQuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F501FA24B37CA6003379F1 /* SettingQuerViewController.swift */; };
 		D3F5020124B449F5003379F1 /* SingleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5020024B449F4003379F1 /* SingleAddViewController.swift */; };
-		D3F5020424B4A68A003379F1 /* MutipleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5020324B4A68A003379F1 /* MutipleAddViewController.swift */; };
+		D3F5020424B4A68A003379F1 /* MultipleAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5020324B4A68A003379F1 /* MultipleAddViewController.swift */; };
 		D3F5020624B4A697003379F1 /* BlankAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5020524B4A697003379F1 /* BlankAddViewController.swift */; };
-		D3F5021624B6089E003379F1 /* QuerEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021424B6089E003379F1 /* QuerEditViewController.swift */; };
-		D3F5021724B6089E003379F1 /* RandomQSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021524B6089E003379F1 /* RandomQSetViewController.swift */; };
 		D3F5021A24B714E1003379F1 /* EditPaperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021924B714E1003379F1 /* EditPaperDelegate.swift */; };
 		D3F5021D24B7F94E003379F1 /* MyJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021C24B7F94E003379F1 /* MyJoinViewController.swift */; };
 		D3F5021F24B7FA15003379F1 /* MyJoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */; };
@@ -52,12 +59,8 @@
 		D3F77F18245AB83B00E10220 /* NewPanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F13245AB83B00E10220 /* NewPanGesture.swift */; };
 		D3F77F19245AB83B00E10220 /* NewGestureAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F14245AB83B00E10220 /* NewGestureAction.swift */; };
 		D3F77F1A245AB83B00E10220 /* NewGestureVIew+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F15245AB83B00E10220 /* NewGestureVIew+Gesture.swift */; };
-		D3F77F1C245AB9F000E10220 /* QuerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */; };
-		D3F77FA0245FF0EE00E10220 /* SelectQCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */; };
-		D3F77FA2245FFC4000E10220 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA1245FFC4000E10220 /* SelectionView.swift */; };
-		D3F77FA4246067F300E10220 /* QuerSettingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */; };
-		D3F77FA82460782900E10220 /* AddQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA72460782900E10220 /* AddQViewController.swift */; };
 		D3F77FAA2460790700E10220 /* TotalFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F77FA92460790700E10220 /* TotalFunc.swift */; };
+		D3F8C06F24BD9FA200331EAC /* RatingAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F8C06E24BD9FA200331EAC /* RatingAddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +83,16 @@
 		D3B2F9D02452FFB6004BC23D /* PaperModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModel.swift; sourceTree = "<group>"; };
 		D3B2F9D224530173004BC23D /* MyCreateListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCreateListCell.swift; sourceTree = "<group>"; };
 		D3B2F9D4245302B0004BC23D /* StatusCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCircle.swift; sourceTree = "<group>"; };
+		D3C69D9A24BAEA110064D9AA /* PaperModeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperModeSwitchView.swift; sourceTree = "<group>"; };
 		D3D49C3F24670A9C001F18AF /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
+		D3E30A0724C36B7A009AD3BF /* EditPaperCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPaperCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E30A0924C36B8B009AD3BF /* EditQuesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditQuesCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E30A0B24C36DBE009AD3BF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		D3E30A1124C5EE5F009AD3BF /* QuerAnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerAnswerViewController.swift; sourceTree = "<group>"; };
+		D3E30A1324C5F50F009AD3BF /* AnsSingleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsSingleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E30A1524C7D4ED009AD3BF /* AnsMultipleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsMultipleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E30A1724C7D7F1009AD3BF /* AnsBlankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsBlankCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E30A1924C7EF6F009AD3BF /* AnsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsCardView.swift; sourceTree = "<group>"; };
 		D3F10C8F245208AC00B0EB4C /* Questionnaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questionnaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F10C92245208AC00B0EB4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3F10C99245208AC00B0EB4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,10 +112,8 @@
 		D3F501F324B16C10003379F1 /* MyCreateScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCreateScrollView.swift; sourceTree = "<group>"; };
 		D3F501FA24B37CA6003379F1 /* SettingQuerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingQuerViewController.swift; sourceTree = "<group>"; };
 		D3F5020024B449F4003379F1 /* SingleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAddViewController.swift; sourceTree = "<group>"; };
-		D3F5020324B4A68A003379F1 /* MutipleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutipleAddViewController.swift; sourceTree = "<group>"; };
+		D3F5020324B4A68A003379F1 /* MultipleAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAddViewController.swift; sourceTree = "<group>"; };
 		D3F5020524B4A697003379F1 /* BlankAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankAddViewController.swift; sourceTree = "<group>"; };
-		D3F5021424B6089E003379F1 /* QuerEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerEditViewController.swift; sourceTree = "<group>"; };
-		D3F5021524B6089E003379F1 /* RandomQSetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomQSetViewController.swift; sourceTree = "<group>"; };
 		D3F5021924B714E1003379F1 /* EditPaperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPaperDelegate.swift; sourceTree = "<group>"; };
 		D3F5021C24B7F94E003379F1 /* MyJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoinViewController.swift; sourceTree = "<group>"; };
 		D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoinListCell.swift; sourceTree = "<group>"; };
@@ -112,12 +122,8 @@
 		D3F77F13245AB83B00E10220 /* NewPanGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPanGesture.swift; sourceTree = "<group>"; };
 		D3F77F14245AB83B00E10220 /* NewGestureAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGestureAction.swift; sourceTree = "<group>"; };
 		D3F77F15245AB83B00E10220 /* NewGestureVIew+Gesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewGestureVIew+Gesture.swift"; sourceTree = "<group>"; };
-		D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerSettingViewController.swift; sourceTree = "<group>"; };
-		D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQCell.swift; sourceTree = "<group>"; };
-		D3F77FA1245FFC4000E10220 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
-		D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerSettingLabel.swift; sourceTree = "<group>"; };
-		D3F77FA72460782900E10220 /* AddQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddQViewController.swift; sourceTree = "<group>"; };
 		D3F77FA92460790700E10220 /* TotalFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalFunc.swift; sourceTree = "<group>"; };
+		D3F8C06E24BD9FA200331EAC /* RatingAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingAddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +178,7 @@
 				D329390F2483A81E0039385C /* CreateCenterViewController.swift */,
 				D32939142483AD990039385C /* EditPaperViewController.swift */,
 				D3F501FA24B37CA6003379F1 /* SettingQuerViewController.swift */,
-				D3F501FF24B449DB003379F1 /* AddQuesiton */,
+				D3F501FF24B449DB003379F1 /* QuesitonVC */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -205,6 +211,9 @@
 			isa = PBXGroup;
 			children = (
 				D32939112483AAB50039385C /* QuestionCollectionViewCell.swift */,
+				D3E30A0724C36B7A009AD3BF /* EditPaperCollectionViewCell.swift */,
+				D3E30A0924C36B8B009AD3BF /* EditQuesCollectionViewCell.swift */,
+				D3E30A0B24C36DBE009AD3BF /* RatingView.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -232,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				D3F501F324B16C10003379F1 /* MyCreateScrollView.swift */,
+				D3C69D9A24BAEA110064D9AA /* PaperModeSwitchView.swift */,
 				D3B2F9D224530173004BC23D /* MyCreateListCell.swift */,
 				D3F5021E24B7FA15003379F1 /* MyJoinListCell.swift */,
 				D329375D248112B30039385C /* StatusBlock.swift */,
@@ -248,6 +258,42 @@
 				D3F501EA24AF33F0003379F1 /* QuestionModel.swift */,
 				D3F501DE24ADDE70003379F1 /* MyPaperModel.swift */,
 				D3F5013E24ACD4DB003379F1 /* PaperCompontModel.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		D3E30A0D24C40E96009AD3BF /* Answer */ = {
+			isa = PBXGroup;
+			children = (
+				D3E30A1024C40EB5009AD3BF /* M */,
+				D3E30A0F24C40EB1009AD3BF /* V */,
+				D3E30A0E24C40EAD009AD3BF /* C */,
+			);
+			path = Answer;
+			sourceTree = "<group>";
+		};
+		D3E30A0E24C40EAD009AD3BF /* C */ = {
+			isa = PBXGroup;
+			children = (
+				D3E30A1124C5EE5F009AD3BF /* QuerAnswerViewController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		D3E30A0F24C40EB1009AD3BF /* V */ = {
+			isa = PBXGroup;
+			children = (
+				D3E30A1324C5F50F009AD3BF /* AnsSingleCollectionViewCell.swift */,
+				D3E30A1524C7D4ED009AD3BF /* AnsMultipleCollectionViewCell.swift */,
+				D3E30A1724C7D7F1009AD3BF /* AnsBlankCollectionViewCell.swift */,
+				D3E30A1924C7EF6F009AD3BF /* AnsCardView.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		D3E30A1024C40EB5009AD3BF /* M */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -279,10 +325,10 @@
 				D3F501EC24B06DE3003379F1 /* NetManger */,
 				D329390C24839E310039385C /* DataBase */,
 				D3F10CA7245209D800B0EB4C /* TotalExtension */,
-				D3F77F0A245AB2C400E10220 /* Quer */,
 				D32938F124837B830039385C /* Login */,
 				D3F10CA6245209BB00B0EB4C /* Home */,
 				D32937572480FF150039385C /* Create */,
+				D3E30A0D24C40E96009AD3BF /* Answer */,
 				D3B2F9C82452D491004BC23D /* Mine */,
 				D3F10CA824520A2A00B0EB4C /* Trash */,
 			);
@@ -409,58 +455,21 @@
 			path = NetManger;
 			sourceTree = "<group>";
 		};
-		D3F501FF24B449DB003379F1 /* AddQuesiton */ = {
+		D3F501FF24B449DB003379F1 /* QuesitonVC */ = {
 			isa = PBXGroup;
 			children = (
 				D3F5020024B449F4003379F1 /* SingleAddViewController.swift */,
-				D3F5020324B4A68A003379F1 /* MutipleAddViewController.swift */,
+				D3F5020324B4A68A003379F1 /* MultipleAddViewController.swift */,
 				D3F5020524B4A697003379F1 /* BlankAddViewController.swift */,
+				D3F8C06E24BD9FA200331EAC /* RatingAddViewController.swift */,
 			);
-			path = AddQuesiton;
+			path = QuesitonVC;
 			sourceTree = "<group>";
 		};
 		D3F5021824B714C9003379F1 /* M */ = {
 			isa = PBXGroup;
 			children = (
 				D3F5021924B714E1003379F1 /* EditPaperDelegate.swift */,
-			);
-			path = M;
-			sourceTree = "<group>";
-		};
-		D3F77F0A245AB2C400E10220 /* Quer */ = {
-			isa = PBXGroup;
-			children = (
-				D3F77F0D245AB2DB00E10220 /* M */,
-				D3F77F0C245AB2D400E10220 /* V */,
-				D3F77F0B245AB2CF00E10220 /* C */,
-			);
-			path = Quer;
-			sourceTree = "<group>";
-		};
-		D3F77F0B245AB2CF00E10220 /* C */ = {
-			isa = PBXGroup;
-			children = (
-				D3F5021524B6089E003379F1 /* RandomQSetViewController.swift */,
-				D3F77F1B245AB9F000E10220 /* QuerSettingViewController.swift */,
-				D3F77FA72460782900E10220 /* AddQViewController.swift */,
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		D3F77F0C245AB2D400E10220 /* V */ = {
-			isa = PBXGroup;
-			children = (
-				D3F77F9F245FF0EE00E10220 /* SelectQCell.swift */,
-				D3F77FA1245FFC4000E10220 /* SelectionView.swift */,
-				D3F5021424B6089E003379F1 /* QuerEditViewController.swift */,
-				D3F77FA3246067F300E10220 /* QuerSettingLabel.swift */,
-			);
-			path = V;
-			sourceTree = "<group>";
-		};
-		D3F77F0D245AB2DB00E10220 /* M */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -612,22 +621,21 @@
 			files = (
 				D3F10CB92452C35400B0EB4C /* TColor.swift in Sources */,
 				D3F5013F24ACD4DB003379F1 /* PaperCompontModel.swift in Sources */,
-				D3F5020424B4A68A003379F1 /* MutipleAddViewController.swift in Sources */,
+				D3F5020424B4A68A003379F1 /* MultipleAddViewController.swift in Sources */,
 				D32939102483A81E0039385C /* CreateCenterViewController.swift in Sources */,
 				D3F5021A24B714E1003379F1 /* EditPaperDelegate.swift in Sources */,
 				D329390E24839E490039385C /* PaperManger.swift in Sources */,
+				D3E30A1424C5F50F009AD3BF /* AnsSingleCollectionViewCell.swift in Sources */,
 				D3F10C93245208AC00B0EB4C /* AppDelegate.swift in Sources */,
 				D3F501DF24ADDE70003379F1 /* MyPaperModel.swift in Sources */,
 				D3F501FB24B37CA6003379F1 /* SettingQuerViewController.swift in Sources */,
 				D3F77F16245AB83B00E10220 /* NewLongPressGesture.swift in Sources */,
 				D32938F424837EFF0039385C /* LoginViewController.swift in Sources */,
-				D3F77FA2245FFC4000E10220 /* SelectionView.swift in Sources */,
 				D3B2F9CD2452D4BE004BC23D /* CreatePaperViewController.swift in Sources */,
 				D3F5020624B4A697003379F1 /* BlankAddViewController.swift in Sources */,
 				D3B2F9D12452FFB6004BC23D /* PaperModel.swift in Sources */,
 				D3B2F9D5245302B0004BC23D /* StatusCircle.swift in Sources */,
 				D3F77F18245AB83B00E10220 /* NewPanGesture.swift in Sources */,
-				D3F77FA0245FF0EE00E10220 /* SelectQCell.swift in Sources */,
 				D3F77F1A245AB83B00E10220 /* NewGestureVIew+Gesture.swift in Sources */,
 				D3F77F19245AB83B00E10220 /* NewGestureAction.swift in Sources */,
 				D3F77FAA2460790700E10220 /* TotalFunc.swift in Sources */,
@@ -638,23 +646,27 @@
 				D3B2F9D324530173004BC23D /* MyCreateListCell.swift in Sources */,
 				D3F77F17245AB83B00E10220 /* NewTapGesture.swift in Sources */,
 				D3F5021D24B7F94E003379F1 /* MyJoinViewController.swift in Sources */,
+				D3E30A1824C7D7F1009AD3BF /* AnsBlankCollectionViewCell.swift in Sources */,
+				D3C69D9B24BAEA110064D9AA /* PaperModeSwitchView.swift in Sources */,
 				D32939122483AAB50039385C /* QuestionCollectionViewCell.swift in Sources */,
+				D3E30A0C24C36DBE009AD3BF /* RatingView.swift in Sources */,
 				D3F5020124B449F5003379F1 /* SingleAddViewController.swift in Sources */,
+				D3E30A1624C7D4ED009AD3BF /* AnsMultipleCollectionViewCell.swift in Sources */,
 				D3B2F9CF2452F441004BC23D /* MyCreateViewController.swift in Sources */,
+				D3E30A0A24C36B8B009AD3BF /* EditQuesCollectionViewCell.swift in Sources */,
+				D3E30A1A24C7EF6F009AD3BF /* AnsCardView.swift in Sources */,
 				D3F501EE24B06DFF003379F1 /* NetManager.swift in Sources */,
 				D3F10CBC2452C8F000B0EB4C /* PartButton.swift in Sources */,
-				D3F5021724B6089E003379F1 /* RandomQSetViewController.swift in Sources */,
-				D3F77F1C245AB9F000E10220 /* QuerSettingViewController.swift in Sources */,
 				D3F10CB72452C0C600B0EB4C /* TotalView.swift in Sources */,
 				D3D49C4024670A9C001F18AF /* HomeViewCell.swift in Sources */,
+				D3E30A0824C36B7A009AD3BF /* EditPaperCollectionViewCell.swift in Sources */,
 				D329375E248112B30039385C /* StatusBlock.swift in Sources */,
-				D3F77FA82460782900E10220 /* AddQViewController.swift in Sources */,
 				D3F10CB324520B1E00B0EB4C /* HomeViewController.swift in Sources */,
-				D3F77FA4246067F300E10220 /* QuerSettingLabel.swift in Sources */,
 				D3F10CB52452C0B800B0EB4C /* UIKitExtension.swift in Sources */,
 				D3F501EB24AF33F0003379F1 /* QuestionModel.swift in Sources */,
-				D3F5021624B6089E003379F1 /* QuerEditViewController.swift in Sources */,
+				D3E30A1224C5EE5F009AD3BF /* QuerAnswerViewController.swift in Sources */,
 				D3F501F424B16C10003379F1 /* MyCreateScrollView.swift in Sources */,
+				D3F8C06F24BD9FA200331EAC /* RatingAddViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

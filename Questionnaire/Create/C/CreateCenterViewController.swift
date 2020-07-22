@@ -12,7 +12,7 @@ class CreateCenterViewController: UIViewController {
     var delegate: EditPaperDelegate?
     
     var collectionView: UICollectionView!
-    var types: [String] = ["单选题", "多选题", "填空题", "段落题", "排序题"]
+    var types: [String] = ["单选题", "多选题", "填空题", "量表题", "排序题"]
     
     let cellId = "Questionnaire.CreateCenterCell"
     
@@ -21,9 +21,6 @@ class CreateCenterViewController: UIViewController {
         setUp()
     }
     
-    @objc fileprivate func back() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
 }
 
 //MARK: - UI
@@ -69,13 +66,17 @@ extension CreateCenterViewController: UICollectionViewDelegate, UICollectionView
             single.delegate = self.delegate
             navigationController?.pushViewController(single, animated: true)
         case 1:
-            let multi = MutipleAddViewController()
+            let multi = MultipleAddViewController()
             multi.delegate = self.delegate
             navigationController?.pushViewController(multi, animated: true)
         case 2:
             let blank = BlankAddViewController()
             blank.delegate = self.delegate
             navigationController?.pushViewController(blank, animated: true)
+        case 3:
+            let rating = RatingAddViewController()
+            rating.delegate = self.delegate
+            navigationController?.pushViewController(rating, animated: true)
         default:
             return
         }

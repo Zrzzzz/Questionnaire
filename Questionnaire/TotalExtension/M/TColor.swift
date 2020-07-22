@@ -27,4 +27,13 @@ public struct TColor {
     static let bar = UIColor.init { trainCollection -> UIColor in
         return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0xFFFFFF): UIColor(hex6: 0x469ad0)
     }
+    static let textRed = UIColor.init { trainCollection -> UIColor in
+        return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0x000000): UIColor(hex6: 0xFF0000)
+    }
+    static let textGray = UIColor.init { trainCollection -> UIColor in
+        return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0x000000): .gray
+    }
+    static let textBlue = UIColor.init { trainCollection -> UIColor in
+        return trainCollection.userInterfaceStyle == .dark ? UIColor(hex6: 0x000000): UIColor(hex6: 0x009CE7)
+    }
 }

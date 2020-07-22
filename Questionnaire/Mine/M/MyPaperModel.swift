@@ -8,10 +8,34 @@
 
 import UIKit
 import SwiftyJSON
-
+import Unrealm
 
 // MARK: - MyJoinPaper
-struct MyJoinPaper: Codable {
+struct MyJoinPaper: Realmable, Hashable, Codable {
+    static func primaryKey() -> String? {
+        return "paperID"
+    }
+    
+    init() {
+        paperID = Int.random(in: 1..<100000)
+        (startTime, endTime, score, lastTime, times) = (nil, nil, nil, nil, nil)
+        paperName = ""
+        status = .notPub
+        paperType = .quer
+    }
+    
+    init(paperID: Int, paperName: String, paperType: PaperType, startTime: Int, endTime: Int, lastTime: Int, status: PaperStatus, score: Int, times: Int) {
+        self.paperID = paperID
+        self.paperName = paperName
+        self.paperType = paperType
+        self.startTime = startTime
+        self.endTime = endTime
+        self.lastTime = lastTime
+        self.status = status
+        self.score = score
+        self.times = times
+    }
+    
     var paperID: Int
     var paperName: String
     var startTime, endTime, score: Int?
@@ -65,7 +89,8 @@ extension MyJoinPaper {
 
 
 // MARK: - MyCreatePaper
-struct MyCreatePaper: Codable {
+struct MyCreatePaper: Realmable, Hashable, Codable {
+    
     var paperID: Int
     var paperName: String
     var star, number: Int
@@ -77,6 +102,27 @@ struct MyCreatePaper: Codable {
         case paperName = "paper_name"
         case status, star, number
         case paperType = "paper_type"
+    }
+    
+    static func primaryKey() -> String? {
+        return "paperID"
+    }
+    
+    init() {
+        paperID = Int.random(in: 1..<100000)
+        paperName = ""
+        (star, number) = (0, 0)
+        status = .pubed
+        paperType = .quer
+    }
+    
+    init(paperID: Int, paperName: String, paperType: PaperType, status: PaperStatus, star: Int, number: Int) {
+        self.paperID = paperID
+        self.paperName = paperName
+        self.paperType = paperType
+        self.status = status
+        self.star = star
+        self.number = number
     }
 }
 

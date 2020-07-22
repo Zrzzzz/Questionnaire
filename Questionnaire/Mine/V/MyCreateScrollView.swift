@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 由于产品改来改去,这个ScrollView又不需要了, 使用方法放到最下面
 class MyPaperScrollView: UIScrollView, UIScrollViewDelegate {
     /* UI */
     var tableViews: [UITableView?]? = []
@@ -94,6 +95,8 @@ class MyPaperScrollView: UIScrollView, UIScrollViewDelegate {
             // 滚动
             tableView.isScrollEnabled = false
             tableView.separatorStyle = .none
+            // 背景颜色
+            tableView.backgroundColor = TColor.bgGray
             if type == .create {
                 tableView.register(MyCreateListCell.self, forCellReuseIdentifier: "Questionnaire.MyCreateView.cell")
             } else {
@@ -112,3 +115,98 @@ class MyPaperScrollView: UIScrollView, UIScrollViewDelegate {
         pageControl.currentPage = Int(offset.x / frame.width)
     }
 }
+
+
+// 刷新数据
+//scrollView?.refresh(cellHeight: 180, dataCount: filterList.count)
+
+// 代理设置, 主要难点在于计算pageIndex
+//MARK: - Delegate
+//extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        switch tableView {
+//        case scrollView?.tableViews?.last:
+//            return filterList.count % scrollView!.cellCount == 0 ? scrollView!.cellCount : filterList.count % scrollView!.cellCount
+//        default:
+//            return scrollView!.cellCount
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let pageIndex: Int = {
+//            let i = scrollView!.tableViews?.firstIndex { (tv) -> Bool in
+//                tv == tableView
+//            }
+//            return i ?? 0
+//        }()
+//
+//        let cell: MyCreateListCell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyCreateListCell
+//        cell.set(paper: filterList[indexPath.row + scrollView!.cellCount * pageIndex])
+//        return cell
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 180
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let pageIndex: Int = {
+//            let i = scrollView!.tableViews?.firstIndex { (tv) -> Bool in
+//                tv == tableView
+//            }
+//            return i ?? 0
+//        }()
+//        let aPaper = self.filterList[indexPath.row + scrollView!.cellCount * pageIndex]
+//
+//        let alert = UIAlertController(title: "选择操作", message: nil, preferredStyle: .alert)
+//        let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//        let action2 = UIAlertAction(title: "编辑", style: .default) { _ in
+//            let paper = PaperManager.querPaper(by: aPaper)
+//            let vc = EditPaperViewController()
+//            vc.paper = paper
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+//
+//        var action3 = UIAlertAction()
+//        let status = aPaper.status
+//        if status == .pubed {
+//            action3 = UIAlertAction(title: "停止", style: .destructive, handler: { (_) in
+//                // TODO: 停止问卷
+//            })
+//        } else if status == .notPub {
+//            action3 = UIAlertAction(title: "发布", style: .default, handler: { (_) in
+//                // 发布到云端
+//                let paper = PaperManager.querPaper(by: aPaper)
+//                NetManager.postPaper(by: paper) {
+//                    // 本地数据删除
+//                    PaperManager.deletePaper(by: paper)
+//                }
+//
+//            })
+//        }
+//
+//        let action4 = UIAlertAction(title: "删除", style: .destructive) { _ in
+//            // TODO: 删除Paper
+//            PaperManager.deletePapers(by: NSPredicate(format: "id == %d", self.filterList[indexPath.row].paperID))
+//            self.paperList.removeAll { (paper) -> Bool in
+//                paper.paperID == aPaper.paperID
+//            }
+//            self.searchController.searchBar.text = self.searchController.searchBar.text
+//            self.scrollView?.reloadInputViews()
+//        }
+//        alert.addAction(action1)
+//        if status == .notPub {
+//            alert.addAction(action2)
+//        }
+//        if status != .overed {
+//            alert.addAction(action3)
+//        }
+//        alert.addAction(action4)
+//
+//        self.present(alert, animated: true)
+//        // 取消选定
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
+//
+//}
+//

@@ -11,11 +11,8 @@ import UIKit
 class MyJoinViewController: UIViewController {
     // UI控件
     var searchController: UISearchController!
-    var querModeBtn: UIButton!
-    var testModeBtn: UIButton!
-    var voteModeBtn: UIButton!
+    var modeView: PaperModeSwitchView!
     var tableView: UITableView!
-    var scrollView: MyPaperScrollView?
     // 变量
     let btnWidth = (screen.width - 20) / 3
     let cellId = "Questionnaire.MyJoinView.cell"
@@ -24,15 +21,15 @@ class MyJoinViewController: UIViewController {
     
     var filterList: [MyJoinPaper] = [] {
         didSet {
-//            if let tableViews = scrollView?.tableViews {
-//                tableViews.map {
-//                    $0.reloadData()
-//                }
-//            }
-            scrollView?.refresh(cellHeight: 180, dataCount: filterList.count)
-
+            tableView.reloadData()
         }
     }// 这个用来做过滤等操作
+    
+    var paperType = PaperType.quer {
+        didSet {
+            self.dataRefresh(type: self.paperType)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +43,7 @@ class MyJoinViewController: UIViewController {
         paperList = NetManager.getJoinPaper(type: .quer)
         filterList = paperList
         
-        scrollView?.refresh(cellHeight: 180, dataCount: paperList.count)
+        dataRefresh(type: self.paperType)
     }
 }
 
@@ -55,24 +52,12 @@ class MyJoinViewController: UIViewController {
 //MARK: - Delegate
 extension MyJoinViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case scrollView?.tableViews?.last:
-            return filterList.count % scrollView!.cellCount == 0 ? scrollView!.cellCount : filterList.count % scrollView!.cellCount
-        default:
-            return scrollView!.cellCount
-        }
+        return filterList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let pageIndex: Int = {
-            let i = scrollView!.tableViews?.firstIndex { (tv) -> Bool in
-                tv == tableView
-            }
-            return i ?? 0
-        }()
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyJoinListCell
-        cell.set(paper: filterList[indexPath.row + scrollView!.cellCount * pageIndex])
+        let cell: MyJoinListCell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MyJoinListCell
+        cell.set(paper: filterList[indexPath.row])
         return cell
     }
     
@@ -81,27 +66,17 @@ extension MyJoinViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "选择操作", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "选择操作", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let action2 = UIAlertAction(title: "编辑", style: .default) { _ in
-            let paper = PaperManager.querPapers(by: NSPredicate(format: "paperName like %@", self.filterList[indexPath.row].paperName))[0]
-            let vc = EditPaperViewController()
+        let action2 = UIAlertAction(title: "作答", style: .default) { _ in
+            // TODO: 改为从网络请求Paper
+            let paper = PaperManager.querPaper(by: self.filterList[indexPath.row])
+            let vc = QuerAnswerViewController()
             vc.paper = paper
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        let action3 = UIAlertAction(title: "删除", style: .destructive) { _ in
-            // TODO: 删除Paper
-            PaperManager.deletePapers(by: NSPredicate(format: "id like %@", self.filterList[indexPath.row].paperID))
-            self.paperList.removeAll { (paper) -> Bool in
-                paper.paperID == self.filterList[indexPath.row].paperID
-            }
-            self.searchController.searchBar.text = self.searchController.searchBar.text
-            self.scrollView?.reloadInputViews()
-        }
         alert.addAction(action1)
         alert.addAction(action2)
-        alert.addAction(action3)
         
         self.present(alert, animated: true)
         // 取消选定
@@ -135,61 +110,30 @@ extension MyJoinViewController {
         
         // 标题
         self.title = "我参与的"
+        // 背景颜色
+        self.view.backgroundColor = TColor.bgGray
         
-        querModeBtn = createFilterBtn(title: "问卷", tag: 0) { (btn) in
-            self.view.addSubview(btn)
-            btn.snp.makeConstraints { (make) in
-                make.width.height.equalTo(btnWidth)
-                make.top.equalTo(view).offset(150)
-                make.left.equalTo(view).offset(5)
-            }
-            btn.setCornerRadius(radius: btnWidth / 2)
-        }
+        // 切换模式的View
+        modeView = PaperModeSwitchView(frame: CGRect(x: 0, y: 150, width: screen.width, height: 150))
+        view.addSubview(modeView)
+        modeView.querBtn.addTarget(self, action: #selector(changeList(btn:)), for: .touchUpInside)
+        modeView.testBtn.addTarget(self, action: #selector(changeList(btn:)), for: .touchUpInside)
+        modeView.voteBtn.addTarget(self, action: #selector(changeList(btn:)), for: .touchUpInside)
         
-        testModeBtn = createFilterBtn(title: "答题", tag: 1) { (btn) in
-            self.view.addSubview(btn)
-            btn.snp.makeConstraints { (make) in
-                make.width.height.equalTo(btnWidth)
-                make.top.equalTo(view).offset(150)
-                make.centerX.equalTo(view)
-            }
-            btn.setCornerRadius(radius: btnWidth / 2)
-        }
         
-        voteModeBtn = createFilterBtn(title: "投票", tag: 2) { (btn) in
-            self.view.addSubview(btn)
-            btn.snp.makeConstraints { (make) in
-                make.width.height.equalTo(btnWidth)
-                make.top.equalTo(view).offset(150)
-                make.right.equalTo(view).offset(-5)
-            }
-            btn.setCornerRadius(radius: btnWidth / 2)
-        }
+        tableView = UITableView(frame: CGRect(x: 0, y: btnWidth + 180, width: screen.width, height: screen.height - 150 - btnWidth - 30))
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        scrollView = MyPaperScrollView(frame: CGRect(x: 0, y: btnWidth + 160, width: screen.width, height: screen.height - 150 - btnWidth - 10), type: .join, addPageControl: { (pageControl) in
-            self.view.addSubview(pageControl)
-        })
-        scrollView?.tableViewDataSource = self
-        scrollView?.tableViewDelegate = self
+        tableView.separatorStyle = .none
+        // 背景颜色
+        tableView.backgroundColor = TColor.bgGray
+        tableView.register(MyCreateListCell.self, forCellReuseIdentifier: "Questionnaire.MyCreateView.cell")
+        tableView.register(MyJoinListCell.self, forCellReuseIdentifier: "Questionnaire.MyJoinView.cell")
         
-        self.view.addSubview(scrollView!)
-        // 让pageControl在最前面
-        self.view.bringSubviewToFront(scrollView!.pageControl)
-        
+        view.addSubview(tableView)
     }
     
-    private func createFilterBtn(title: String, tag: Int, snpSet: (UIButton) -> Void) -> UIButton {
-        let btn = UIButton()
-        btn.setTitle(title, for: .normal)
-        btn.setTitleColor(TColor.text, for: .normal)
-        btn.tag = tag
-        btn.addTarget(self, action: #selector(changeList(btn:)), for: .touchUpInside)
-        btn.backgroundColor = TColor.main
-        
-        snpSet(btn)
-        
-        return btn
-    }
 }
 
 //MARK: - 数据处理
@@ -207,15 +151,22 @@ extension MyJoinViewController: UISearchResultsUpdating {
         
     }
     
+    fileprivate func dataRefresh(type: PaperType) {
+        
+        self.paperList = NetManager.getJoinPaper(type: .quer)
+        self.filterList = paperList
+    }
+    
+    
     @objc fileprivate func changeList(btn: UIButton) {
         switch btn.tag {
         case 0:
-            paperList = NetManager.getJoinPaper(type: .quer)
+            self.paperType = .quer
         case 1:
-            paperList = NetManager.getJoinPaper(type: .test)
+            self.paperType = .test
         default:
-            paperList = NetManager.getJoinPaper(type: .vote)
+            self.paperType = .vote
         }
-        filterList = paperList
     }
+    
 }

@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
         pwdTF.isSecureTextEntry = true
         
         forgetBtn.setTitle("忘记密码", for: .normal)
-        forgetBtn.setTitleColor(.gray, for: .normal)
+        forgetBtn.setTitleColor(TColor.textGray, for: .normal)
         forgetBtn.titleLabel?.font = .systemFont(ofSize: 12)
         forgetBtn.backgroundColor = .clear
         forgetBtn.addTarget(self, action: #selector(forget), for: .touchUpInside)

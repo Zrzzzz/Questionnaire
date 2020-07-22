@@ -35,7 +35,7 @@ class HomeViewCell: UICollectionViewCell {
         imgView.contentMode = .scaleAspectFit
         imgView.snp.makeConstraints { (make) in
             make.left.equalTo(bgView).offset(10)
-            make.width.height.equalTo(35)
+            make.width.height.equalTo(25)
             make.centerY.equalTo(self)
         }
         
@@ -43,13 +43,13 @@ class HomeViewCell: UICollectionViewCell {
         bgView.addSubview(title)
         title.font = .systemFont(ofSize: 16)
         title.snp.makeConstraints { (make) in
-            make.left.equalTo(imgView.snp_right).offset(5)
+            make.left.equalTo(imgView.snp_right).offset(10)
             make.centerY.equalTo(self)
         }
         
         arrow = UIImageView()
         bgView.addSubview(arrow)
-        arrow.image = UIImage(named: "right_arrow")?.withRenderingMode(.alwaysOriginal)
+        arrow.image = UIImage(named: "homevc_right_arrow")?.withRenderingMode(.alwaysOriginal)
         arrow.snp.makeConstraints { (make) in
             make.centerY.equalTo(self)
             make.right.equalTo(bgView.snp_right).offset(-10)

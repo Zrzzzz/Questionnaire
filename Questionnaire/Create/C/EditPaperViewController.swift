@@ -15,27 +15,10 @@ class EditPaperViewController: UIViewController, EditPaperDelegate {
     var collectionView: UICollectionView!
     var addBtn: UIButton!
     
-    /* data */
+    /* variable */
     let quesCellId = "Questionnaire.EditPaperVC.qeusCell"
     let paperCellId = "Questionnaire.EditPaperVC.paperCell"
     
-    /* Ques */
-//    lazy var array: [Single] = {
-//        var arr = Array<Single>()
-//        for i in 1..<20 {
-//            arr.append(Single(id: UUID().uuidString, question: "题目\(i)", options: ["A","B","C"], rightAnswer: 0, random: 0, necessary: 0, score: 4))
-//        }
-//        return arr
-//    }()
-    
-    
-//    lazy var array: [Blank] = {
-//        var arr = Array<Blank>()
-//        for i in 1..<20 {
-//            arr.append(Blank(id: UUID().uuidString, question: "问题\(i)", rightAnswer: nil, necessary: 0, score: 0))
-//        }
-//        return arr
-//    }()
     // Paper
     var paper: Paper? {
         didSet {
@@ -69,6 +52,7 @@ extension EditPaperViewController {
     private func setup() {
         
         // 右边按钮
+        title = "编辑问卷"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "设置", style: .plain, target: self, action: #selector(setVC))
         
         // 底部按钮
@@ -97,7 +81,7 @@ extension EditPaperViewController {
         
         // addBtn
         addBtn = UIButton(frame: CGRect(x: screen.width / 5 * 4, y: screen.height / 6.5 * 5.5, width: 60, height: 60))
-        addBtn.setImage(UIImage(named: "editpaper_plus"), for: .normal)
+        addBtn.setImage(UIImage(named: "editpapervc_plus"), for: .normal)
         addBtn.setCornerRadius(radius: 30)
         addBtn.addTarget(self, action: #selector(addQues), for: .touchUpInside)
         view.addSubview(addBtn)
@@ -105,7 +89,16 @@ extension EditPaperViewController {
     
     @objc fileprivate func savePaper() {
         PaperManager.update(by: paper!)
-        navigationController?.popToRootViewController(animated: true)
+        // 总数-2, 即获取前一个VC(self.parent不太管用)
+        if let vc = navigationController?.viewControllers[(navigationController?.viewControllers.count)! - 2] {
+            if type(of: vc) == MyCreateViewController.self {
+                navigationController?.popViewController(animated: true)
+            } else {
+                // 分情况, 这种就是从首页进去的, 直接回到首页
+                navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        
     }
     
     @objc fileprivate func setVC() {
@@ -136,30 +129,142 @@ extension EditPaperViewController: UICollectionViewDataSource, UICollectionViewD
         if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: paperCellId, for: indexPath) as! EditPaperCollectionViewCell
             cell.titleLabel.text = paper?.paperName
-            if paper?.paperComment != nil {
+            if paper?.paperComment != "" {
                 cell.commentLabel?.text = paper?.paperComment!
             }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: quesCellId, for: indexPath) as! EditQuesCollectionViewCell
             var ques: Any
-            if let singleCount = self.quesData?.single.count,
-                let multiCount = self.quesData?.multiple.count,
-            let blankCount = self.quesData?.blank.count {
-                switch indexPath.row - 1 {
-                case 0..<singleCount:
-                    ques = quesData!.single[indexPath.row - 1]
-                case singleCount..<singleCount + multiCount:
-                    ques = quesData!.multiple[indexPath.row - 1 - singleCount]
-                case singleCount + multiCount..<singleCount + multiCount + blankCount:
-                    ques = quesData!.blank[indexPath.row - 1 - (singleCount + multiCount)]
-                default:
-                    ques = Single()
-                }
-                cell.update(by: ques)
+            switch self.calcIndex(row: indexPath.row) {
+            case (.single, let index):
+                ques = self.quesData!.single[index]
+            case (.multiple, let index):
+                ques = self.quesData!.multiple[index]
+            case (.blank, let index):
+                ques = self.quesData!.blank[index]
+            case (.rating, _):
+                // TODO: rating
+                ques = Single()
             }
+            cell.update(by: ques, row: indexPath.row)
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        if indexPath.row != 0 {
+            let alert = UIAlertController(title: "题目编辑", message: nil, preferredStyle: .alert)
+            let cancelAct = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            let editAct = UIAlertAction(title: "编辑", style: .default) { (_) in
+                
+                var ques: Any
+                switch self.calcIndex(row: indexPath.row) {
+                case (.single, let index):
+                    ques = self.quesData!.single[index]
+                    let vc = SingleAddViewController(by: ques as! Single)
+                    vc.delegate = self
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                case (.multiple, let index):
+                    ques = self.quesData!.multiple[index]
+                    let vc = MultipleAddViewController(by: ques as! Multiple)
+                    vc.delegate = self
+                    self.navigationController?.pushViewController(vc, animated: true)
+                case (.blank, let index):
+                    ques = self.quesData!.blank[index]
+                    let vc = BlankAddViewController(by: ques as! Blank)
+                    vc.delegate = self
+                    self.navigationController?.pushViewController(vc, animated: true)
+                
+                case (.rating, _):
+                    // TODO: rating
+                    return
+                }
+            }
+            let upAct = UIAlertAction(title: "上移", style: .default) { (_) in
+                switch self.calcIndex(row: indexPath.row) {
+                case (.single, let index):
+                    if index != 0 {
+                        self.quesData!.single.swapAt(index - 1, index)
+                    }
+                case (.multiple, let index):
+                    if index != 0 {
+                        self.quesData!.multiple.swapAt(index - 1, index)
+                    }
+                case (.blank, let index):
+                    if index != 0 {
+                        self.quesData!.blank.swapAt(index - 1, index)
+                    }
+                case (.rating, _):
+                    // TODO: rating
+                    return
+                }
+                collectionView.reloadSections(IndexSet(arrayLiteral: indexPath.section))
+            }
+            let downAct = UIAlertAction(title: "下移", style: .default) { (_) in
+                switch self.calcIndex(row: indexPath.row) {
+                case (.single, let index):
+                    if index != self.quesData!.single.count - 1 {
+                        self.quesData!.single.swapAt(index + 1, index)
+                    }
+                case (.multiple, let index):
+                    if index != self.quesData!.multiple.count - 1 {
+                        self.quesData!.multiple.swapAt(index + 1, index)
+                    }
+                case (.blank, let index):
+                    if index != self.quesData!.blank.count - 1 {
+                        self.quesData!.blank.swapAt(index + 1, index)
+                    }
+                    // TODO: Rating
+                case (.rating, let index):
+                    return
+                }
+
+                collectionView.reloadSections(IndexSet(arrayLiteral: indexPath.section))
+            }
+            let delAct = UIAlertAction(title: "删除", style: .destructive) { (_) in
+                switch self.calcIndex(row: indexPath.row) {
+                case (.single, let index):
+                    self.quesData?.single.remove(at: index)
+                case (.multiple, let index):
+                    self.quesData?.multiple.remove(at: index)
+                case (.blank, let index):
+                    self.quesData?.blank.remove(at: index)
+                    // TODO: Rating
+                case (.rating, let index):
+                    return
+                }
+                
+                collectionView.reloadSections(IndexSet(arrayLiteral: indexPath.section))
+            }
+            
+            alert.addAction(cancelAct)
+            alert.addAction(editAct)
+            alert.addAction(upAct)
+            alert.addAction(downAct)
+            alert.addAction(delAct)
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
+    private func calcIndex(row: Int) -> (QuesType, Int) {
+        if let singleCount = self.quesData?.single.count,
+            let multiCount = self.quesData?.multiple.count,
+            let blankCount = self.quesData?.blank.count {
+            switch row - 1 {
+            case 0..<singleCount:
+                return (.single, row - 1)
+            case singleCount..<singleCount + multiCount:
+                return (.multiple, row - 1 - singleCount)
+            case singleCount + multiCount..<singleCount + multiCount + blankCount:
+                return (.blank, row - 1 - (singleCount + multiCount))
+            default: break
+            }
+        }
+        return (.single, 0)
     }
 }
 

@@ -125,6 +125,10 @@ extension UIButton {
 }
 
 extension CGRect {
+    
+    /// 使其居中对齐, 并且尽可能拓展
+    /// - Parameter rect: 宽高
+    /// - Returns: 适合的CGRect
     static func centerRect(rect: CGRect) -> CGRect {
         if rect.width < rect.height {
             return CGRect(x: rect.minX, y: rect.minY + (rect.height - rect.width) / 2, width: rect.width, height: rect.width)

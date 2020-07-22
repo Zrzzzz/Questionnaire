@@ -59,30 +59,15 @@ import UIKit
 
 
 class StatusCircle: UIImageView {
-    var imageStr = "status_notPub" {
-        didSet {
-            self.image = UIImage(named: imageStr)
-        }
-    }
     convenience init(frame: CGRect, status: PaperStatus) {
         self.init(frame: CGRect.centerRect(rect: frame))
         
         // 使其居中对齐, 并且尽可能拓展 -- CGRect.centerRect
 //        let newFrame = CGRect.centerRect(rect: frame)
         changeStatus(status: status)
-        
     }
         
     func changeStatus(status: PaperStatus) {
-        imageStr = {
-            switch status {
-            case .notPub:
-                return "status_notPub"
-            case .pubed:
-                return "status_pubed"
-            case .overed:
-                return "status_overed"
-            }
-        }()
+        self.image = UIImage(named: status.imageName())
     }
 }

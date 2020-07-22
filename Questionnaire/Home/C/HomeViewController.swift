@@ -14,18 +14,18 @@ class HomeViewController: UIViewController {
     var collectionView: UICollectionView!
     // 变量
     let cellId = "Questionnaire.HomeVC.Cell"
-    let parts = ["新建", "我创建的", "我参与的", "查看标星", "回收站"]
-    let partsImgs: [String] = ["create", "mycreate", "myjoin", "star", "trash"]
+    let parts = ["新建", "我创建的", "我参与的", "回收站"]
+    let partsImgs: [String] = ["homevc_create", "homevc_mycreate", "homevc_myjoin", "homevc_trash"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = TColor.bar
         setStatusBar()
-//        drawSearchController()
         drawNavigationBar()
         drawCollectionView()
         
-        NetManager.test()
+        PaperManager.test()
+        
     }
 }
 
@@ -68,7 +68,7 @@ extension HomeViewController: UISearchControllerDelegate {
     
     private func drawNavigationBar() {
         navigationItem.title = "问卷答题投票"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(sideListOnTouch))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "homevc_user"), style: .plain, target: self, action: #selector(sideListOnTouch))
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.barTintColor = TColor.bar
         navigationController?.navigationBar.backgroundColor = TColor.bar
