@@ -17,25 +17,33 @@ class Blank: Realmable, Codable {
         (id, question, rightAnswer) = ("", "", nil)
         necessary = 0
         score = 0
+        (signed, signedID, sign) = (0, 0, [])
     }
     
     var id, question: String
     var rightAnswer: String?
     var necessary, score: Int
+    var signed, signedID: Int
+    var sign: [Sign]
 
     enum CodingKeys: String, CodingKey {
         case id, question
         case rightAnswer = "right_answer"
         case necessary
         case score
+        case sign, signed
+        case signedID = "signed_id"
     }
 
-    init(id: String, question: String, rightAnswer: String?, necessary: Int, score: Int) {
+    init(id: String, question: String, rightAnswer: String?, necessary: Int, score: Int, signed: Int, signedID: Int, sign: [Sign]) {
         self.id = id
         self.question = question
         self.rightAnswer = rightAnswer
         self.necessary = necessary
         self.score = score
+        self.signed = signed
+        self.signedID = signedID
+        self.sign = sign
     }
 }
 
@@ -44,7 +52,7 @@ class Blank: Realmable, Codable {
 extension Blank {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(Blank.self, from: data)
-        self.init(id: me.id, question: me.question, rightAnswer: me.rightAnswer ?? "", necessary: me.necessary, score: me.score)
+        self.init(id: me.id, question: me.question, rightAnswer: me.rightAnswer ?? "", necessary: me.necessary, score: me.score, signed: me.signed, signedID: me.signedID, sign: me.sign)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -73,15 +81,19 @@ class Multiple: Realmable, Codable {
     var options: [String]
     var rightAnswer: [Int]?
     var random, necessary, score: Int
+    var signed, signedID: Int
+    var sign: [Sign]
 
     enum CodingKeys: String, CodingKey {
         case id, question, options
         case rightAnswer = "right_answer"
         case random, necessary
         case score
+        case signed, sign
+        case signedID = "signed_id"
     }
 
-    init(id: String, question: String, options: [String], rightAnswer: [Int]?, random: Int, necessary: Int, score: Int) {
+    init(id: String, question: String, options: [String], rightAnswer: [Int]?, random: Int, necessary: Int, score: Int, signed: Int, signedID: Int, sign: [Sign]) {
         self.id = id
         self.question = question
         self.options = options
@@ -89,6 +101,9 @@ class Multiple: Realmable, Codable {
         self.random = random
         self.necessary = necessary
         self.score = score
+        self.signed = signed
+        self.signedID = signedID
+        self.sign = sign
     }
     
     required init() {
@@ -96,6 +111,7 @@ class Multiple: Realmable, Codable {
         options = []
         rightAnswer = nil
         (random, necessary, score) = (0, 0, 0)
+        (signed, signedID, sign) = (0, 0, [])
     }
 }
 
@@ -104,7 +120,7 @@ class Multiple: Realmable, Codable {
 extension Multiple {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(Multiple.self, from: data)
-        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? [], random: me.random, necessary: me.necessary, score: me.score)
+        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? [], random: me.random, necessary: me.necessary, score: me.score, signed: me.signed, signedID: me.signedID, sign: me.sign)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -133,15 +149,19 @@ class Single: Realmable, Codable {
     var options: [String]
     var rightAnswer: Int?
     var random, necessary, score: Int
+    var signed, signedID: Int
+    var sign: [Sign]
 
     enum CodingKeys: String, CodingKey {
         case id, question, options
         case rightAnswer = "right_answer"
         case random, necessary
         case score
+        case signed, sign
+        case signedID = "signed_id"
     }
 
-    init(id: String, question: String, options: [String], rightAnswer: Int?, random: Int, necessary: Int, score: Int) {
+    init(id: String, question: String, options: [String], rightAnswer: Int?, random: Int, necessary: Int, score: Int, signed: Int, signedID: Int, sign: [Sign]) {
         self.id = id
         self.question = question
         self.options = options
@@ -149,12 +169,16 @@ class Single: Realmable, Codable {
         self.random = random
         self.necessary = necessary
         self.score = score
+        self.signed = signed
+        self.signedID = signedID
+        self.sign = sign
     }
     
     required init() {
         (id, question) = ("", "")
         options = []
         (rightAnswer, random, necessary, score) = (nil, 0, 0, 0)
+        (signed, signedID, sign) = (0, 0, [])
     }
 }
 
@@ -163,7 +187,7 @@ class Single: Realmable, Codable {
 extension Single {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(Single.self, from: data)
-        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? 0, random: me.random, necessary: me.necessary, score: me.score)
+        self.init(id: me.id, question: me.question, options: me.options, rightAnswer: me.rightAnswer ?? 0, random: me.random, necessary: me.necessary, score: me.score, signed: me.signed, signedID: me.signedID, sign: me.sign)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -184,4 +208,20 @@ extension Single {
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
         return String(data: try self.jsonData(), encoding: encoding)
     }
+}
+
+struct Sign: Realmable, Codable {
+    init() {
+        signId = 0
+        optionIndex = []
+    }
+    
+    var signId: Int
+    var optionIndex: [Int]
+    
+    private enum CodingKeys: String, CodingKey {
+        case signId = "sign_id"
+        case optionIndex = "option_index"
+    }
+    
 }

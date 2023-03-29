@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 
+
 class PaperManager {
     // 设定用户数据库
     static func setDefaultRealmForUser(username: String) {
@@ -64,7 +65,7 @@ class PaperManager {
         if let realm = getDB() {
             try? realm.write {
                 realm.add(paper, update: .modified)
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 print("保存成功")
             }
         }
@@ -74,7 +75,7 @@ class PaperManager {
         if let realm = getDB() {
             try? realm.write {
                 realm.add(papers)
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 print("保存成功")
             }
         }
@@ -100,7 +101,7 @@ class PaperManager {
         if let realm = getDB() {
             do {
                 try realm.write {
-                    print(realm.configuration.fileURL)
+                    print(realm.configuration.fileURL!)
                     realm.add(paper, update: .modified)
                 }
             } catch {
@@ -150,7 +151,7 @@ class PaperManager {
     static func deletePaper(by paper: Paper) {
         if let realm = getDB() {
             do {
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 try realm.write {
                     realm.delete(paper)
                 }
@@ -167,7 +168,7 @@ class PaperManager {
             let results = realm.objects(Paper.self).filter(predicate)
             do {
                 try realm.write {
-                    print(realm.configuration.fileURL)
+                    print(realm.configuration.fileURL!)
                     // i should quote it but not pass its value
                     for i in 0..<results.count {
                         realm.delete(results[i])
@@ -186,7 +187,7 @@ class PaperManager {
             let results = realm.objects(Paper.self)
             do {
                 try realm.write {
-                    print(realm.configuration.fileURL)
+                    print(realm.configuration.fileURL!)
                     // i should quote it but not pass its value
                     for i in 0..<results.count {
                         realm.delete(results[i])
@@ -206,7 +207,7 @@ extension PaperManager {
         if let realm = getDB() {
             try? realm.write {
                 realm.add(paper, update: .all)
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 print("保存成功")
             }
         }
@@ -216,7 +217,7 @@ extension PaperManager {
         if let realm = getDB() {
             try? realm.write {
                 realm.add(papers)
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 print("保存成功")
             }
         }
@@ -233,7 +234,7 @@ extension PaperManager {
                 paper.paperType == type
             }
             
-            createPapers.append(contentsOf: papers.map(paperToCreatePaper).sorted(by: {
+            createPapers.append(contentsOf: papers.map(changePaperToCreatePaper(paper:)).sorted(by: {
                 $0.paperName < $1.paperName
             }))
             
@@ -245,15 +246,19 @@ extension PaperManager {
         return createPapers
     }
     
-    fileprivate static func paperToCreatePaper(paper: Paper) -> MyCreatePaper {
+    static func changePaperToCreatePaper(paper: Paper) -> MyCreatePaper {
         return MyCreatePaper(paperID: paper.id, paperName: paper.paperName, paperType: paper.paperType, status: .notPub, star: 0, number: 0)
+    }
+    
+    static func changeCreatePaperToPaper(paper: MyCreatePaper) -> Paper {
+        return querPaper(by: paper)
     }
     
     // 删除
     static func deleteMyCreate(by paper: MyCreatePaper) {
         if let realm = getDB() {
             do {
-                print(realm.configuration.fileURL)
+                print(realm.configuration.fileURL!)
                 try realm.write {
                     realm.delete(paper)
                 }

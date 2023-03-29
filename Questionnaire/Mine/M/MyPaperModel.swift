@@ -24,6 +24,7 @@ struct MyJoinPaper: Realmable, Hashable, Codable {
         paperType = .quer
     }
     
+    
     init(paperID: Int, paperName: String, paperType: PaperType, startTime: Int, endTime: Int, lastTime: Int, status: PaperStatus, score: Int, times: Int) {
         self.paperID = paperID
         self.paperName = paperName

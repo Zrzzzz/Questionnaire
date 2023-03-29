@@ -41,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Multiple.self,
             Single.self,
             MyCreatePaper.self,
-            MyJoinPaper.self
+            MyJoinPaper.self,
+            Sign.self
+            
         ])
     }
     

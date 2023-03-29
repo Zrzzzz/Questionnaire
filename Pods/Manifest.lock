@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.2.1)
-  - Eureka (5.2.1)
+  - Eureka (5.3.1)
   - Realm (5.0.3):
     - Realm/Headers (= 5.0.3)
   - Realm/Headers (5.0.3)
@@ -28,21 +28,22 @@ DEPENDENCIES:
   - Unrealm
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - Eureka
     - Realm
-    - RealmSwift
-    - RuntimeNew
     - SDWebImage
     - SnapKit
     - SwiftDate
     - SwiftyJSON
+  trunk:
+    - Eureka
+    - RealmSwift
+    - RuntimeNew
     - Unrealm
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
-  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
+  Eureka: 859877ab1e85661b6b7e810015d430e937d9cc7d
   Realm: bfca1699b61b0b17c3a69ae0e648314eae91fbdb
   RealmSwift: 493c9f089cd3893b3959007973c0e4f640906ba0
   RuntimeNew: ef34cf1783be4c1cbe798970bc590924dab5df87
@@ -52,6 +53,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Unrealm: ba1c168935344084ba28dd6bff5ded86f4837d7f
 
-PODFILE CHECKSUM: 4cae04c428c5d2e938349f3e19e5d272ff2cd6e7
+PODFILE CHECKSUM: 7874a1f8d9203e59cefda666056f3ac2716fd0a6
 
 COCOAPODS: 1.8.4

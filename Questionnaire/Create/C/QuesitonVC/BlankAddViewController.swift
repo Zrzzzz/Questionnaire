@@ -68,7 +68,7 @@ class BlankAddViewController: FormViewController {
                 if let title = (self.form.rowBy(tag: "title") as! TextRow).value,
                     let score = (self.form.rowBy(tag: "score") as! IntRow).value {
                     // 本来放在下面的if else语句中, 但是这样的话能够省一点, 如果self.blank.id 为空也就是创建状态了
-                    let blank = Blank(id: self.blank?.id ?? UUID().uuidString, question: title, rightAnswer: self.getRightAns(), necessary: self.getNess(), score: score)
+                    let blank = Blank(id: self.blank?.id ?? UUID().uuidString, question: title, rightAnswer: self.getRightAns(), necessary: self.getNess(), score: score, signed: 0, signedID: 0, sign: [])
                     if self.status == .add {
                         self.delegate?.paper?.paperQuestion.blank.append(blank)
                     } else {

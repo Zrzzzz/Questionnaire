@@ -29,7 +29,7 @@ open class _DateRow: _DateFieldRow {
         dateFormatter = DateFormatter()
         dateFormatter?.timeStyle = .none
         dateFormatter?.dateStyle = .medium
-        dateFormatter?.locale = Locale(identifier: "zh")
+        dateFormatter?.locale = Locale.current
     }
 }
 
@@ -39,7 +39,7 @@ open class _TimeRow: _DateFieldRow {
         dateFormatter = DateFormatter()
         dateFormatter?.timeStyle = .short
         dateFormatter?.dateStyle = .none
-        dateFormatter?.locale = Locale(identifier: "zh")
+        dateFormatter?.locale = Locale.current
     }
 }
 
@@ -49,7 +49,7 @@ open class _DateTimeRow: _DateFieldRow {
         dateFormatter = DateFormatter()
         dateFormatter?.timeStyle = .short
         dateFormatter?.dateStyle = .short
-        dateFormatter?.locale = Locale(identifier: "zh")
+        dateFormatter?.locale = Locale.current
     }
 }
 

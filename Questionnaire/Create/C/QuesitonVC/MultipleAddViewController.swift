@@ -93,7 +93,7 @@ class MultipleAddViewController: FormViewController {
                 if let title = (self.form.rowBy(tag: "title") as! TextRow).value,
                     let score = (self.form.rowBy(tag: "score") as! IntRow).value {
                     // create multi
-                    let multi = Multiple(id: self.multi?.id ?? UUID().uuidString, question: title, options: self.getOptions(), rightAnswer: self.getRightAns(), random: 0, necessary: self.getNess(), score: score)
+                    let multi = Multiple(id: self.multi?.id ?? UUID().uuidString, question: title, options: self.getOptions(), rightAnswer: self.getRightAns(), random: 0, necessary: self.getNess(), score: score, signed: 0, signedID: 0, sign: [])
                     // add or update
                     if self.status == .add {
                         self.delegate?.paper?.paperQuestion.multiple.append(multi)

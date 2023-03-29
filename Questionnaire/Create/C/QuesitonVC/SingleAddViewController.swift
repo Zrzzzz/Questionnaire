@@ -89,7 +89,7 @@ class SingleAddViewController: FormViewController {
                 if let title = (self.form.rowBy(tag: "title") as! TextRow).value,
                     let score = (self.form.rowBy(tag: "score") as! IntRow).value {
                     // Create single
-                    let single = Single(id: self.single?.id ?? UUID().uuidString, question: title, options: self.getOptions(), rightAnswer: self.getRightAns(), random: 0, necessary: self.getNess(), score: score)
+                    let single = Single(id: self.single?.id ?? UUID().uuidString, question: title, options: self.getOptions(), rightAnswer: self.getRightAns(), random: 0, necessary: self.getNess(), score: score, signed: 0, signedID: 0, sign: [])
                     
                     // 分条件添加或者更改
                     if self.status == .add {

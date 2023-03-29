@@ -80,14 +80,22 @@ extension MyCreateViewController: UITableViewDelegate, UITableViewDataSource {
                 // TODO: 停止问卷
             })
         } else if status == .notPub {
+            // 发布问卷
             action3 = UIAlertAction(title: "发布", style: .default, handler: { (_) in
                 // 发布到云端
                 let paper = PaperManager.querPaper(by: aPaper)
-                NetManager.postPaper(by: paper) {
-                    // 本地数据删除
-                    PaperManager.deletePaper(by: paper)
-                    PaperManager.deleteMyCreate(by: self.filterList[indexPath.row])
-                    self.dataRefresh(type: self.paperType)
+                NetManager.postPaper(by: paper) { result in
+                    switch result {
+                    case .success(_):
+                        // 本地数据删除
+                        PaperManager.deletePaper(by: paper)
+                        PaperManager.deleteMyCreate(by: self.filterList[indexPath.row])
+//                        self.filterList.remove(at: indexPath.row)
+                        self.dataRefresh(type: self.paperType)
+                        
+                    case .failure(let error):
+                         print(error)
+                    }
                 }
 
             })
